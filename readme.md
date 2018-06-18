@@ -1,3 +1,3 @@
-## FinnSeg
+## FinnSeg 2.0
 
-A work in progress.
+Segmenting compounds since 2018. (Hopefully.)

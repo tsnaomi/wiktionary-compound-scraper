@@ -1,0 +1,871 @@
+{
+    "aa": {
+        "language": "Afar",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Afar_lemmas"
+    },
+    "ab": {
+        "language": "Abkhaz",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Abkhaz_lemmas"
+    },
+    "ae": {
+        "language": "Avestan",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Avestan_lemmas"
+    },
+    "af": {
+        "language": "Afrikaans",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Afrikaans_lemmas",
+        "wiki": "https://af.wiktionary.org/wiki/"
+    },
+    "ak": {
+        "language": "Akan",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Akan_lemmas"
+    },
+    "am": {
+        "language": "Amharic",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Amharic_lemmas",
+        "wiki": "https://am.wiktionary.org/wiki/"
+    },
+    "an": {
+        "language": "Aragonese",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Aragonese_lemmas",
+        "wiki": "https://an.wiktionary.org/wiki/"
+    },
+    "ar": {
+        "language": "Arabic",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Arabic_lemmas",
+        "wiki": "https://ar.wiktionary.org/wiki/"
+    },
+    "as": {
+        "language": "Assamese",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Assamese_lemmas"
+    },
+    "av": {
+        "language": "Avar",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Avar_lemmas"
+    },
+    "ay": {
+        "language": "Aymara",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Aymara_lemmas",
+        "wiki": "https://ay.wiktionary.org/wiki/"
+    },
+    "az": {
+        "language": "Azerbaijani",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Azerbaijani_lemmas",
+        "wiki": "https://az.wiktionary.org/wiki/"
+    },
+    "ba": {
+        "language": "Bashkir",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Bashkir_lemmas",
+        "wiki": "https://ba.wiktionary.org/wiki/"
+    },
+    "be": {
+        "language": "Belarusian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Belarusian_lemmas",
+        "wiki": "https://be.wiktionary.org/wiki/"
+    },
+    "bg": {
+        "language": "Bulgarian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Bulgarian_lemmas",
+        "wiki": "https://bg.wiktionary.org/wiki/"
+    },
+    "bh": {
+        "language": "Bihari",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Bihari_lemmas"
+    },
+    "bi": {
+        "language": "Bislama",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Bislama_lemmas"
+    },
+    "bm": {
+        "language": "Bambara",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Bambara_lemmas"
+    },
+    "bn": {
+        "language": "Bengali",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Bengali_lemmas",
+        "wiki": "https://bn.wiktionary.org/wiki/"
+    },
+    "bo": {
+        "language": "Tibetan",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Tibetan_lemmas"
+    },
+    "br": {
+        "language": "Breton",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Breton_lemmas",
+        "wiki": "https://br.wiktionary.org/wiki/"
+    },
+    "ca": {
+        "language": "Catalan",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Catalan_lemmas",
+        "wiki": "https://ca.wiktionary.org/wiki/"
+    },
+    "ce": {
+        "language": "Chechen",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Chechen_lemmas",
+        "wiki": "https://ce.wiktionary.org/wiki/"
+    },
+    "ch": {
+        "language": "Chamorro",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Chamorro_lemmas"
+    },
+    "co": {
+        "language": "Corsican",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Corsican_lemmas",
+        "wiki": "https://co.wiktionary.org/wiki/"
+    },
+    "cr": {
+        "language": "Cree",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Cree_lemmas"
+    },
+    "cs": {
+        "language": "Czech",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Czech_lemmas",
+        "wiki": "https://cs.wiktionary.org/wiki/"
+    },
+    "cu": {
+        "language": "Old Church Slavonic",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Old_Church_Slavonic_lemmas",
+        "wiki": "https://cu.wiktionary.org/wiki/"
+    },
+    "cv": {
+        "language": "Chuvash",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Chuvash_lemmas",
+        "wiki": "https://cv.wiktionary.org/wiki/"
+    },
+    "cy": {
+        "language": "Welsh",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Welsh_lemmas",
+        "wiki": "https://cy.wiktionary.org/wiki/"
+    },
+    "da": {
+        "language": "Danish",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Danish_lemmas",
+        "wiki": "https://da.wiktionary.org/wiki/"
+    },
+    "de": {
+        "language": "German",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:German_lemmas",
+        "wiki": "https://de.wiktionary.org/wiki/"
+    },
+    "dv": {
+        "language": "Dhivehi",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Dhivehi_lemmas",
+        "wiki": "https://dv.wiktionary.org/wiki/"
+    },
+    "dz": {
+        "language": "Dzongkha",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Dzongkha_lemmas"
+    },
+    "ee": {
+        "language": "Ewe",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Ewe_lemmas",
+        "wiki": "https://ee.wiktionary.org/wiki/"
+    },
+    "el": {
+        "language": "Greek",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Greek_lemmas",
+        "wiki": "https://el.wiktionary.org/wiki/"
+    },
+    "en": {
+        "language": "English",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:English_lemmas",
+        "wiki": "https://en.wiktionary.org/wiki/"
+    },
+    "eo": {
+        "language": "Esperanto",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Esperanto_lemmas",
+        "wiki": "https://eo.wiktionary.org/wiki/"
+    },
+    "es": {
+        "language": "Spanish",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Spanish_lemmas",
+        "wiki": "https://es.wiktionary.org/wiki/"
+    },
+    "et": {
+        "language": "Estonian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Estonian_lemmas",
+        "wiki": "https://et.wiktionary.org/wiki/"
+    },
+    "eu": {
+        "language": "Basque",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Basque_lemmas",
+        "wiki": "https://eu.wiktionary.org/wiki/"
+    },
+    "fa": {
+        "language": "Persian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Persian_lemmas",
+        "wiki": "https://fa.wiktionary.org/wiki/"
+    },
+    "ff": {
+        "language": "Fula",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Fula_lemmas",
+        "wiki": "https://ff.wiktionary.org/wiki/"
+    },
+    "fi": {
+        "language": "Finnish",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Finnish_lemmas",
+        "wiki": "https://fi.wiktionary.org/wiki/"
+    },
+    "fj": {
+        "language": "Fijian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Fijian_lemmas",
+        "wiki": "https://fj.wiktionary.org/wiki/"
+    },
+    "fo": {
+        "language": "Faroese",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Faroese_lemmas",
+        "wiki": "https://fo.wiktionary.org/wiki/"
+    },
+    "fr": {
+        "language": "French",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:French_lemmas",
+        "wiki": "https://fr.wiktionary.org/wiki/"
+    },
+    "fy": {
+        "language": "West Frisian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:West_Frisian_lemmas",
+        "wiki": "https://fy.wiktionary.org/wiki/"
+    },
+    "ga": {
+        "language": "Irish",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Irish_lemmas",
+        "wiki": "https://ga.wiktionary.org/wiki/"
+    },
+    "gd": {
+        "language": "Scottish Gaelic",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Scottish_Gaelic_lemmas",
+        "wiki": "https://gd.wiktionary.org/wiki/"
+    },
+    "gl": {
+        "language": "Galician",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Galician_lemmas",
+        "wiki": "https://gl.wiktionary.org/wiki/"
+    },
+    "gn": {
+        "language": "Guaran\u00ed",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Guaran%C3%AD_lemmas",
+        "wiki": "https://gn.wiktionary.org/wiki/"
+    },
+    "gu": {
+        "language": "Gujarati",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Gujarati_lemmas",
+        "wiki": "https://gu.wiktionary.org/wiki/"
+    },
+    "gv": {
+        "language": "Manx",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Manx_lemmas",
+        "wiki": "https://gv.wiktionary.org/wiki/"
+    },
+    "ha": {
+        "language": "Hausa",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Hausa_lemmas",
+        "wiki": "https://ha.wiktionary.org/wiki/"
+    },
+    "he": {
+        "language": "Hebrew",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Hebrew_lemmas",
+        "wiki": "https://he.wiktionary.org/wiki/"
+    },
+    "hi": {
+        "language": "Hindi",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Hindi_lemmas",
+        "wiki": "https://hi.wiktionary.org/wiki/"
+    },
+    "ho": {
+        "language": "Hiri Motu",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Hiri_Motu_lemmas",
+        "wiki": "https://ho.wiktionary.org/wiki/"
+    },
+    "ht": {
+        "language": "Haitian Creole",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Haitian_Creole_lemmas",
+        "wiki": "https://ht.wiktionary.org/wiki/"
+    },
+    "hu": {
+        "language": "Hungarian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Hungarian_lemmas",
+        "wiki": "https://hu.wiktionary.org/wiki/"
+    },
+    "hy": {
+        "language": "Armenian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Armenian_lemmas",
+        "wiki": "https://hy.wiktionary.org/wiki/"
+    },
+    "hz": {
+        "language": "Herero",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Herero_lemmas",
+        "wiki": "https://hz.wiktionary.org/wiki/"
+    },
+    "ia": {
+        "language": "Interlingua",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Interlingua_lemmas",
+        "wiki": "https://ia.wiktionary.org/wiki/"
+    },
+    "id": {
+        "language": "Indonesian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Indonesian_lemmas",
+        "wiki": "https://id.wiktionary.org/wiki/"
+    },
+    "ie": {
+        "language": "Interlingue",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Interlingue_lemmas",
+        "wiki": "https://ie.wiktionary.org/wiki/"
+    },
+    "ig": {
+        "language": "Igbo",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Igbo_lemmas",
+        "wiki": "https://ig.wiktionary.org/wiki/"
+    },
+    "ii": {
+        "language": "Sichuan Yi",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Sichuan_Yi_lemmas",
+        "wiki": "https://ii.wiktionary.org/wiki/"
+    },
+    "ik": {
+        "language": "Inupiak",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Inupiak_lemmas"
+    },
+    "io": {
+        "language": "Ido",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Ido_lemmas",
+        "wiki": "https://io.wiktionary.org/wiki/"
+    },
+    "is": {
+        "language": "Icelandic",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Icelandic_lemmas",
+        "wiki": "https://is.wiktionary.org/wiki/"
+    },
+    "it": {
+        "language": "Italian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Italian_lemmas",
+        "wiki": "https://it.wiktionary.org/wiki/"
+    },
+    "iu": {
+        "language": "Inuktitut",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Inuktitut_lemmas",
+        "wiki": "https://iu.wiktionary.org/wiki/"
+    },
+    "ja": {
+        "language": "Japanese",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Japanese_lemmas",
+        "wiki": "https://ja.wiktionary.org/wiki/"
+    },
+    "jv": {
+        "language": "Javanese",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Javanese_lemmas",
+        "wiki": "https://jv.wiktionary.org/wiki/"
+    },
+    "ka": {
+        "language": "Georgian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Georgian_lemmas",
+        "wiki": "https://ka.wiktionary.org/wiki/"
+    },
+    "kg": {
+        "language": "Kongo",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Kongo_lemmas",
+        "wiki": "https://kg.wiktionary.org/wiki/"
+    },
+    "ki": {
+        "language": "Kikuyu",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Kikuyu_lemmas",
+        "wiki": "https://ki.wiktionary.org/wiki/"
+    },
+    "kj": {
+        "language": "Kwanyama",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Kwanyama_lemmas",
+        "wiki": "https://kj.wiktionary.org/wiki/"
+    },
+    "kk": {
+        "language": "Kazakh",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Kazakh_lemmas",
+        "wiki": "https://kk.wiktionary.org/wiki/"
+    },
+    "kl": {
+        "language": "Greenlandic",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Greenlandic_lemmas",
+        "wiki": "https://kl.wiktionary.org/wiki/"
+    },
+    "km": {
+        "language": "Khmer",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Khmer_lemmas",
+        "wiki": "https://km.wiktionary.org/wiki/"
+    },
+    "kn": {
+        "language": "Kannada",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Kannada_lemmas",
+        "wiki": "https://kn.wiktionary.org/wiki/"
+    },
+    "ko": {
+        "language": "Korean",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Korean_lemmas",
+        "wiki": "https://ko.wiktionary.org/wiki/"
+    },
+    "kr": {
+        "language": "Kanuri",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Kanuri_lemmas",
+        "wiki": "https://kr.wiktionary.org/wiki/"
+    },
+    "ks": {
+        "language": "Kashmiri",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Kashmiri_lemmas",
+        "wiki": "https://ks.wiktionary.org/wiki/"
+    },
+    "ku": {
+        "language": "Kurdish",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Kurdish_lemmas",
+        "wiki": "https://ku.wiktionary.org/wiki/"
+    },
+    "kw": {
+        "language": "Cornish",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Cornish_lemmas",
+        "wiki": "https://kw.wiktionary.org/wiki/"
+    },
+    "ky": {
+        "language": "Kyrgyz",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Kyrgyz_lemmas",
+        "wiki": "https://ky.wiktionary.org/wiki/"
+    },
+    "la": {
+        "language": "Latin",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Latin_lemmas",
+        "wiki": "https://la.wiktionary.org/wiki/"
+    },
+    "lb": {
+        "language": "Luxembourgish",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Luxembourgish_lemmas",
+        "wiki": "https://lb.wiktionary.org/wiki/"
+    },
+    "lg": {
+        "language": "Luganda",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Luganda_lemmas",
+        "wiki": "https://lg.wiktionary.org/wiki/"
+    },
+    "li": {
+        "language": "Limburgish",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Limburgish_lemmas",
+        "wiki": "https://li.wiktionary.org/wiki/"
+    },
+    "ln": {
+        "language": "Lingala",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Lingala_lemmas",
+        "wiki": "https://ln.wiktionary.org/wiki/"
+    },
+    "lo": {
+        "language": "Lao",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Lao_lemmas",
+        "wiki": "https://lo.wiktionary.org/wiki/"
+    },
+    "lt": {
+        "language": "Lithuanian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Lithuanian_lemmas",
+        "wiki": "https://lt.wiktionary.org/wiki/"
+    },
+    "lu": {
+        "language": "Luba-Katanga",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Luba-Katanga_lemmas"
+    },
+    "lv": {
+        "language": "Latvian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Latvian_lemmas",
+        "wiki": "https://lv.wiktionary.org/wiki/"
+    },
+    "mg": {
+        "language": "Malagasy",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Malagasy_lemmas",
+        "wiki": "https://mg.wiktionary.org/wiki/"
+    },
+    "mh": {
+        "language": "Marshallese",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Marshallese_lemmas"
+    },
+    "mi": {
+        "language": "Maori",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Maori_lemmas",
+        "wiki": "https://mi.wiktionary.org/wiki/"
+    },
+    "mk": {
+        "language": "Macedonian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Macedonian_lemmas",
+        "wiki": "https://mk.wiktionary.org/wiki/"
+    },
+    "ml": {
+        "language": "Malayalam",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Malayalam_lemmas",
+        "wiki": "https://ml.wiktionary.org/wiki/"
+    },
+    "mn": {
+        "language": "Mongolian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Mongolian_lemmas",
+        "wiki": "https://mn.wiktionary.org/wiki/"
+    },
+    "mr": {
+        "language": "Marathi",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Marathi_lemmas",
+        "wiki": "https://mr.wiktionary.org/wiki/"
+    },
+    "ms": {
+        "language": "Malay",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Malay_lemmas",
+        "wiki": "https://ms.wiktionary.org/wiki/"
+    },
+    "mt": {
+        "language": "Maltese",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Maltese_lemmas",
+        "wiki": "https://mt.wiktionary.org/wiki/"
+    },
+    "my": {
+        "language": "Burmese",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Burmese_lemmas",
+        "wiki": "https://my.wiktionary.org/wiki/"
+    },
+    "na": {
+        "language": "Nauruan",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Nauruan_lemmas",
+        "wiki": "https://na.wiktionary.org/wiki/"
+    },
+    "nb": {
+        "language": "Norwegian Bokm\u00e5l",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Norwegian_Bokm%C3%A5l_lemmas",
+        "wiki": "https://nb.wiktionary.org/wiki/"
+    },
+    "nd": {
+        "language": "Northern Ndebele",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Northern_Ndebele_lemmas"
+    },
+    "ne": {
+        "language": "Nepali",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Nepali_lemmas",
+        "wiki": "https://ne.wiktionary.org/wiki/"
+    },
+    "ng": {
+        "language": "Ndonga",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Ndonga_lemmas",
+        "wiki": "https://ng.wiktionary.org/wiki/"
+    },
+    "nl": {
+        "language": "Dutch",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Dutch_lemmas",
+        "wiki": "https://nl.wiktionary.org/wiki/"
+    },
+    "nn": {
+        "language": "Norwegian Nynorsk",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Norwegian_Nynorsk_lemmas",
+        "wiki": "https://nn.wiktionary.org/wiki/"
+    },
+    "no": {
+        "language": "Norwegian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Norwegian_lemmas",
+        "wiki": "https://no.wiktionary.org/wiki/"
+    },
+    "nr": {
+        "language": "Southern Ndebele",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Southern_Ndebele_lemmas"
+    },
+    "nv": {
+        "language": "Navajo",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Navajo_lemmas",
+        "wiki": "https://nv.wiktionary.org/wiki/"
+    },
+    "ny": {
+        "language": "Chichewa",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Chichewa_lemmas",
+        "wiki": "https://ny.wiktionary.org/wiki/"
+    },
+    "oc": {
+        "language": "Occitan",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Occitan_lemmas",
+        "wiki": "https://oc.wiktionary.org/wiki/"
+    },
+    "oj": {
+        "language": "Ojibwe",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Ojibwe_lemmas"
+    },
+    "om": {
+        "language": "Oromo",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Oromo_lemmas",
+        "wiki": "https://om.wiktionary.org/wiki/"
+    },
+    "or": {
+        "language": "Oriya",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Oriya_lemmas",
+        "wiki": "https://or.wiktionary.org/wiki/"
+    },
+    "os": {
+        "language": "Ossetian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Ossetian_lemmas",
+        "wiki": "https://os.wiktionary.org/wiki/"
+    },
+    "pa": {
+        "language": "Punjabi",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Punjabi_lemmas",
+        "wiki": "https://pa.wiktionary.org/wiki/"
+    },
+    "pi": {
+        "language": "Pali",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Pali_lemmas"
+    },
+    "pl": {
+        "language": "Polish",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Polish_lemmas",
+        "wiki": "https://pl.wiktionary.org/wiki/"
+    },
+    "ps": {
+        "language": "Pashto",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Pashto_lemmas",
+        "wiki": "https://ps.wiktionary.org/wiki/"
+    },
+    "pt": {
+        "language": "Portuguese",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Portuguese_lemmas",
+        "wiki": "https://pt.wiktionary.org/wiki/"
+    },
+    "qu": {
+        "language": "Quechua",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Quechua_lemmas",
+        "wiki": "https://qu.wiktionary.org/wiki/"
+    },
+    "rm": {
+        "language": "Romansch",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Romansch_lemmas"
+    },
+    "ro": {
+        "language": "Romanian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Romanian_lemmas",
+        "wiki": "https://ro.wiktionary.org/wiki/"
+    },
+    "ru": {
+        "language": "Russian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Russian_lemmas",
+        "wiki": "https://ru.wiktionary.org/wiki/"
+    },
+    "rw": {
+        "language": "Rwanda-Rundi",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Rwanda-Rundi_lemmas",
+        "wiki": "https://rw.wiktionary.org/wiki/"
+    },
+    "sa": {
+        "language": "Sanskrit",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Sanskrit_lemmas",
+        "wiki": "https://sa.wiktionary.org/wiki/"
+    },
+    "sc": {
+        "language": "Sardinian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Sardinian_lemmas"
+    },
+    "sd": {
+        "language": "Sindhi",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Sindhi_lemmas",
+        "wiki": "https://sd.wiktionary.org/wiki/"
+    },
+    "se": {
+        "language": "Northern Sami",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Northern_Sami_lemmas",
+        "wiki": "https://se.wiktionary.org/wiki/"
+    },
+    "sg": {
+        "language": "Sango",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Sango_lemmas",
+        "wiki": "https://sg.wiktionary.org/wiki/"
+    },
+    "sh": {
+        "language": "Serbo-Croatian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Serbo-Croatian_lemmas",
+        "wiki": "https://sh.wiktionary.org/wiki/"
+    },
+    "si": {
+        "language": "Sinhalese",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Sinhalese_lemmas",
+        "wiki": "https://si.wiktionary.org/wiki/"
+    },
+    "sk": {
+        "language": "Slovak",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Slovak_lemmas",
+        "wiki": "https://sk.wiktionary.org/wiki/"
+    },
+    "sl": {
+        "language": "Slovene",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Slovene_lemmas",
+        "wiki": "https://sl.wiktionary.org/wiki/"
+    },
+    "sm": {
+        "language": "Samoan",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Samoan_lemmas",
+        "wiki": "https://sm.wiktionary.org/wiki/"
+    },
+    "sn": {
+        "language": "Shona",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Shona_lemmas"
+    },
+    "so": {
+        "language": "Somali",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Somali_lemmas",
+        "wiki": "https://so.wiktionary.org/wiki/"
+    },
+    "sq": {
+        "language": "Albanian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Albanian_lemmas",
+        "wiki": "https://sq.wiktionary.org/wiki/"
+    },
+    "ss": {
+        "language": "Swazi",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Swazi_lemmas",
+        "wiki": "https://ss.wiktionary.org/wiki/"
+    },
+    "st": {
+        "language": "Sotho",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Sotho_lemmas",
+        "wiki": "https://st.wiktionary.org/wiki/"
+    },
+    "su": {
+        "language": "Sundanese",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Sundanese_lemmas",
+        "wiki": "https://su.wiktionary.org/wiki/"
+    },
+    "sv": {
+        "language": "Swedish",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Swedish_lemmas",
+        "wiki": "https://sv.wiktionary.org/wiki/"
+    },
+    "sw": {
+        "language": "Swahili",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Swahili_lemmas",
+        "wiki": "https://sw.wiktionary.org/wiki/"
+    },
+    "ta": {
+        "language": "Tamil",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Tamil_lemmas",
+        "wiki": "https://ta.wiktionary.org/wiki/"
+    },
+    "te": {
+        "language": "Telugu",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Telugu_lemmas",
+        "wiki": "https://te.wiktionary.org/wiki/"
+    },
+    "tg": {
+        "language": "Tajik",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Tajik_lemmas",
+        "wiki": "https://tg.wiktionary.org/wiki/"
+    },
+    "th": {
+        "language": "Thai",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Thai_lemmas",
+        "wiki": "https://th.wiktionary.org/wiki/"
+    },
+    "ti": {
+        "language": "Tigrinya",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Tigrinya_lemmas",
+        "wiki": "https://ti.wiktionary.org/wiki/"
+    },
+    "tk": {
+        "language": "Turkmen",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Turkmen_lemmas",
+        "wiki": "https://tk.wiktionary.org/wiki/"
+    },
+    "tl": {
+        "language": "Tagalog",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Tagalog_lemmas",
+        "wiki": "https://tl.wiktionary.org/wiki/"
+    },
+    "tn": {
+        "language": "Tswana",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Tswana_lemmas",
+        "wiki": "https://tn.wiktionary.org/wiki/"
+    },
+    "to": {
+        "language": "Tongan",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Tongan_lemmas",
+        "wiki": "https://to.wiktionary.org/wiki/"
+    },
+    "tr": {
+        "language": "Turkish",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Turkish_lemmas",
+        "wiki": "https://tr.wiktionary.org/wiki/"
+    },
+    "ts": {
+        "language": "Tsonga",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Tsonga_lemmas",
+        "wiki": "https://ts.wiktionary.org/wiki/"
+    },
+    "tt": {
+        "language": "Tatar",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Tatar_lemmas",
+        "wiki": "https://tt.wiktionary.org/wiki/"
+    },
+    "ty": {
+        "language": "Tahitian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Tahitian_lemmas",
+        "wiki": "https://ty.wiktionary.org/wiki/"
+    },
+    "ug": {
+        "language": "Uyghur",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Uyghur_lemmas",
+        "wiki": "https://ug.wiktionary.org/wiki/"
+    },
+    "uk": {
+        "language": "Ukrainian",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Ukrainian_lemmas",
+        "wiki": "https://uk.wiktionary.org/wiki/"
+    },
+    "ur": {
+        "language": "Urdu",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Urdu_lemmas",
+        "wiki": "https://ur.wiktionary.org/wiki/"
+    },
+    "uz": {
+        "language": "Uzbek",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Uzbek_lemmas",
+        "wiki": "https://uz.wiktionary.org/wiki/"
+    },
+    "ve": {
+        "language": "Venda",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Venda_lemmas",
+        "wiki": "https://ve.wiktionary.org/wiki/"
+    },
+    "vi": {
+        "language": "Vietnamese",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Vietnamese_lemmas",
+        "wiki": "https://vi.wiktionary.org/wiki/"
+    },
+    "vo": {
+        "language": "Volap\u00fck",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Volap%C3%BCk_lemmas",
+        "wiki": "https://vo.wiktionary.org/wiki/"
+    },
+    "wa": {
+        "language": "Walloon",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Walloon_lemmas",
+        "wiki": "https://wa.wiktionary.org/wiki/"
+    },
+    "wo": {
+        "language": "Wolof",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Wolof_lemmas",
+        "wiki": "https://wo.wiktionary.org/wiki/"
+    },
+    "xh": {
+        "language": "Xhosa",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Xhosa_lemmas"
+    },
+    "yi": {
+        "language": "Yiddish",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Yiddish_lemmas",
+        "wiki": "https://yi.wiktionary.org/wiki/"
+    },
+    "yo": {
+        "language": "Yoruba",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Yoruba_lemmas"
+    },
+    "za": {
+        "language": "Zhuang",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Zhuang_lemmas"
+    },
+    "zh": {
+        "language": "Chinese",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Chinese_lemmas",
+        "wiki": "https://zh.wiktionary.org/wiki/"
+    },
+    "zu": {
+        "language": "Zulu",
+        "lemmas": "https://en.wiktionary.org/wiki/Category:Zulu_lemmas",
+        "wiki": "https://zu.wiktionary.org/wiki/"
+    }
+}
