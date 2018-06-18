@@ -1,9 +1,14 @@
 *.pyc
-*/__pycache__/
-*/.DS_Store
+__pycache__/
 
 .DS_Store
 
 notes.md
 finnseg-lm.py
 finnseg-rnn.py
+
+*.data
+*.errors
+*.errors.*
+postprocess.py
+word_li
