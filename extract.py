@@ -459,6 +459,6 @@ if __name__ == '__main__':
     Extract(
         lang=args.lang,
         grammar_fn=args.grammar_fn,
-        debug_li=args.debug_li or args.debug_fn,
+        debug_li=args.debug_fn and args.debug_li,
         url=args.url,
         )
