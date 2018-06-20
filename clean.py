@@ -4,10 +4,10 @@ import re
 def clean_data(data_fn='data/fi.data'):
     '''Clean the data in `data_fn` and write it to a '.cleaned' file.
 
-    This function removes all duplicate lines of data and all blank lines
-    (which initially separate declension sets). It then sorts the data
-    alphabetically and writes it to a file named '<data_fn>.cleaned', where
-    '<data_fn>' is the name of the file passed into the function.
+    This function removes all blank lines and duplicate lines of data. It then
+    sorts the data alphabetically and writes it to a file named
+    '<data_fn>.cleaned', where '<data_fn>' is the name of the file passed into
+    the function.
     '''
     with open(data_fn, 'r+') as f:
         data = f.readlines()

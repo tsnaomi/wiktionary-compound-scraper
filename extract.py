@@ -167,9 +167,9 @@ class Extract:
         '''Print the annotations for the words listed in `debug_li`.
 
         This method is intended to help debug the scraper. If `debug_li` is a
-        list, this method print annotations for the words listed in `debug_li`.
-        If `debug_li` is a string, it will treat the string as a filename and
-        attempt to read a list of words from the file.
+        list, this method prints annotations for the words listed in
+        `debug_li`. If `debug_li` is a string, it will treat the string as a
+        filename and attempt to read a list of words from the file.
         '''
         if isinstance(debug_li, str):
             with open(debug_li, 'rb') as f:
@@ -331,7 +331,7 @@ class Extract:
         `compound` does not match the orthography of `orth`. This method
         attempts to reconcile their differences to split `orth` appropriately.
 
-        E.g., if the compound is etymology is 'aaltomainen=uus', but `orth` is
+        E.g., if the compound's etymology is 'aaltomainen=uus', but `orth` is
         `aaltomaisuus`, then this method will generate 'aaltomais=uus' as the
         segmentation of `orth`.
         '''
@@ -365,8 +365,8 @@ class Extract:
     def format_compound(self, split):
         '''Convert `split` to a string and format its delimiters.
 
-        The variable `split` is passed in as a list of constituents
-        (words, affixes, etc.)
+        The variable `split` is passed in as a list of compound constituents
+        (i.e., words and affixes).
         '''
         return '='.join(split).replace('-=', '').replace('=-', '') \
             .replace('-=-', '').lower()
@@ -430,7 +430,7 @@ class Extract:
         '''Print an informative error message for `orth`.'''
         print(
             '%s (%s) %s: %s' % (orth, url, type(error).__name__, str(error)),
-            file=stderr)  # noqa
+            file=stderr)
 
     def print_annotation(self, *annotation):
         '''Format and print `annotation`.'''
