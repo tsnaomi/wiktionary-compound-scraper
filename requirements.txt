@@ -1,16 +1,4 @@
 beautifulsoup4==4.6.0
 bidict==0.17.2
 bs4==0.0.1
-certifi==2018.4.16
-chardet==3.0.4
-idna==2.6
 jsmin==2.2.2
-Morfessor==2.0.4
-numpy==1.14.2
-pandas==0.22.0
-python-dateutil==2.7.2
-pytz==2018.4
-requests==2.18.4
-six==1.11.0
-SQLAlchemy==1.2.6
-urllib3==1.22
