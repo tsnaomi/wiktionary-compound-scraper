@@ -1,0 +1,350 @@
+porkkananpunainen (https://en.wiktionary.org/wiki/porkkananpunainen) AttributeError: 'NoneType' object has no attribute 'parent'
+telttatuoli (https://en.wiktionary.org/wiki/telttatuoli) AttributeError: 'NoneType' object has no attribute 'parent'
+
+aamu (https://en.wiktionary.org/wiki/aamu) ExtractionError: Could not reconcile 'aamu' and 'huomen=haamu'.
+aksiisi (https://en.wiktionary.org/wiki/aksiisi) ExtractionError: Could not reconcile 'aksiisi' and 'ad=census'.
+asbestipitoinen (https://en.wiktionary.org/wiki/asbestipitoinen) ExtractionError: Could not reconcile 'asbestipitoinen' and 'asbesti=kuitu'.
+astian maku (https://en.wiktionary.org/wiki/astian_maku) ExtractionError: Could not reconcile 'astianmaku' and 'yöastia=maku'.
+auringonlämpö (https://en.wiktionary.org/wiki/auringonl%C3%A4mp%C3%B6) ExtractionError: Could not reconcile 'auringonlämpö' and 'auringon=säteily'.
+daimio (https://en.wiktionary.org/wiki/daimio) ExtractionError: Could not reconcile 'daimio' and '大=名'.
+deekkari (https://en.wiktionary.org/wiki/deekkari) ExtractionError: Could not reconcile 'deekkari' and 'deeku=teekkari'.
+ehtoollismalja (https://en.wiktionary.org/wiki/ehtoollismalja) ExtractionError: Could not reconcile 'ehtoollismalja' and 'ehtoollis=kalkki'.
+farkut (https://en.wiktionary.org/wiki/farkut) ExtractionError: Could not reconcile 'farkut' and 'farmari=housut'.
+freonikaasu (https://en.wiktionary.org/wiki/freonikaasu) ExtractionError: Could not reconcile 'freonikaasu' and 'freoni=kaasu=gas'.
+futuurisopimus (https://en.wiktionary.org/wiki/futuurisopimus) ExtractionError: Could not reconcile 'futuurisopimus' and 'futuuri=kauppa'.
+gravitaatiolaki (https://en.wiktionary.org/wiki/gravitaatiolaki) ExtractionError: Could not reconcile 'gravitaatiolaki' and 'painovoima=laki'.
+henkilöstöpolitiikka (https://en.wiktionary.org/wiki/henkil%C3%B6st%C3%B6politiikka) ExtractionError: Could not reconcile 'henkilöstöpolitiikka' and 'opetus=politiikka'.
+herneluu (https://en.wiktionary.org/wiki/herneluu) ExtractionError: Could not reconcile 'herneluu' and 'herne=bone'.
+jekkupommi (https://en.wiktionary.org/wiki/jekkupommi) ExtractionError: Could not reconcile 'jekkupommi' and 'jekku=bomb'.
+kaasuletku (https://en.wiktionary.org/wiki/kaasuletku) ExtractionError: Could not reconcile 'kaasuletku' and 'kaasu=putki'.
+kansallisromanttinen (https://en.wiktionary.org/wiki/kansallisromanttinen) ExtractionError: Could not reconcile 'kansallisromanttinen' and 'kansallinen=väri'.
+kaveri (https://en.wiktionary.org/wiki/kaveri) ExtractionError: Could not reconcile 'kaveri' and 'kamraati=toveri'.
+kimono (https://en.wiktionary.org/wiki/kimono) ExtractionError: Could not reconcile 'kimono' and '着=物'.
+kiuas (https://en.wiktionary.org/wiki/kiuas) ExtractionError: Could not reconcile 'kiuas' and 'kivi=kasa'.
+kluuviflada (https://en.wiktionary.org/wiki/kluuviflada) ExtractionError: Could not reconcile 'kluuviflada' and 'glo=flada'.
+kranio-sakraaliterapia (https://en.wiktionary.org/wiki/kranio-sakraaliterapia) ExtractionError: Could not reconcile 'kraniosakraaliterapia' and 'kranio-sakraalinen=terapia'.
+kärkimies (https://en.wiktionary.org/wiki/k%C3%A4rkimies) ExtractionError: Could not reconcile 'kärkimies' and 'lang0fi=kärki=mies'.
+maatamo (https://en.wiktionary.org/wiki/maatamo) ExtractionError: Could not reconcile 'maatamo' and 'maa=kuutamo'.
+mennä lukkoon (https://en.wiktionary.org/wiki/menn%C3%A4_lukkoon) ExtractionError: Could not reconcile 'mennälukkoon' and 'lukkoon=lukko'.
+naisisto (https://en.wiktionary.org/wiki/naisisto) ExtractionError: Could not reconcile 'naisisto' and 'nainen=miehistö'.
+nimiäiset (https://en.wiktionary.org/wiki/nimi%C3%A4iset) ExtractionError: Could not reconcile 'nimiäiset' and 'nimi=ristiäiset'.
+onnettomuusuutinen (https://en.wiktionary.org/wiki/onnettomuusuutinen) ExtractionError: Could not reconcile 'onnettomuusuutinen' and 'onnettomuus=auto'.
+opetusaineisto (https://en.wiktionary.org/wiki/opetusaineisto) ExtractionError: Could not reconcile 'opetusaineisto' and 'opetus=materiaali'.
+oppimisvalmius (https://en.wiktionary.org/wiki/oppimisvalmius) ExtractionError: Could not reconcile 'oppimisvalmius' and 'oppiminen=terapia'.
+paitahihasillaan (https://en.wiktionary.org/wiki/paitahihasillaan) ExtractionError: Could not reconcile 'paitahihasillaan' and 'paita=hihaneni-llaan'.
+peledsiika (https://en.wiktionary.org/wiki/peledsiika) ExtractionError: Could not reconcile 'peledsiika' and 'пелядь=siika'.
+persus (https://en.wiktionary.org/wiki/persus) ExtractionError: Could not reconcile 'persus' and 'perse=takamus'.
+pimeänäkö (https://en.wiktionary.org/wiki/pime%C3%A4n%C3%A4k%C3%B6) ExtractionError: Could not reconcile 'pimeänäkö' and 'hämärä=näkö'.
+pirtelö (https://en.wiktionary.org/wiki/pirtel%C3%B6) ExtractionError: Could not reconcile 'pirtelö' and 'pirteä=jäätelö'.
+proosaruno (https://en.wiktionary.org/wiki/proosaruno) ExtractionError: Could not reconcile 'proosaruno' and 'proosa=eepos'.
+puucee (https://en.wiktionary.org/wiki/puucee) ExtractionError: Could not reconcile 'puucee' and 'puu=wc'.
+reivisolmu (https://en.wiktionary.org/wiki/reivisolmu) ExtractionError: Could not reconcile 'reivisolmu' and 'merimies=solmu'.
+ristilaukka (https://en.wiktionary.org/wiki/ristilaukka) ExtractionError: Could not reconcile 'ristilaukka' and 'cross=laukka'.
+rockmusiikki (https://en.wiktionary.org/wiki/rockmusiikki) ExtractionError: Could not reconcile 'rockmusiikki' and 'rock=video'.
+sanasokeus (https://en.wiktionary.org/wiki/sanasokeus) ExtractionError: Could not reconcile 'sanasokeus' and 'sana=sokeus=blindness'.
+stephensaartensammakko (https://en.wiktionary.org/wiki/stephensaartensammakko) ExtractionError: Could not reconcile 'stephensaartensammakko' and 'stephen-saaret=sammakko'.
+sulkasuoninen (https://en.wiktionary.org/wiki/sulkasuoninen) ExtractionError: Could not reconcile 'sulkasuoninen' and 'koura=sulkanen'.
+synkopoida (https://en.wiktionary.org/wiki/synkopoida) ExtractionError: Could not reconcile 'synkopoida' and 'σύν=κόπτω'.
+säädösoikeus (https://en.wiktionary.org/wiki/s%C3%A4%C3%A4d%C3%B6soikeus) ExtractionError: Could not reconcile 'säädösoikeus' and 'säädös=laki'.
+tapaoikeus (https://en.wiktionary.org/wiki/tapaoikeus) ExtractionError: Could not reconcile 'tapaoikeus' and 'tapa=laki'.
+terrakotta (https://en.wiktionary.org/wiki/terrakotta) ExtractionError: Could not reconcile 'terrakotta' and 'terra=cotta'.
+turkkilainen angora (https://en.wiktionary.org/wiki/turkkilainen_angora) ExtractionError: Could not reconcile 'turkkilainenangora' and 'angora=kani'.
+työviikko (https://en.wiktionary.org/wiki/ty%C3%B6viikko) ExtractionError: Could not reconcile 'työviikko' and 'työ=t1work=viikko=t2week'.
+ulettua (https://en.wiktionary.org/wiki/ulettua) ExtractionError: Could not reconcile 'ulettua' and 'ulottua=ylettyä'.
+vesililja (https://en.wiktionary.org/wiki/vesililja) ExtractionError: Could not reconcile 'vesililja' and 'water=lily'.
+vesiohenteinen (https://en.wiktionary.org/wiki/vesiohenteinen) ExtractionError: Could not reconcile 'vesiohenteinen' and 'öljy=ohenteinen'.
+vuodottomuus (https://en.wiktionary.org/wiki/vuodottomuus) ExtractionError: Could not reconcile 'vuodottomuus' and 'kuukautiset=vuoto'.
+ydinosa (https://en.wiktionary.org/wiki/ydinosa) ExtractionError: Could not reconcile 'ydinosa' and 'ydin=osa=part'.
+yhtenäistaideteos (https://en.wiktionary.org/wiki/yhten%C3%A4istaideteos) ExtractionError: Could not reconcile 'yhtenäistaideteos' and 'kokonais=taideteos'.
+öljytila (https://en.wiktionary.org/wiki/%C3%B6ljytila) ExtractionError: Could not reconcile 'öljytila' and 'öljy=esiintymä'.
+
+puhaltaa (https://en.wiktionary.org/wiki/puhaltaa) ExtractionError: Could not verify '-altaa'.
+uppeluksissa (https://en.wiktionary.org/wiki/uppeluksissa) ExtractionError: Could not verify '-eluksissa'.
+pahaenteinen (https://en.wiktionary.org/wiki/pahaenteinen) ExtractionError: Could not verify '-enteinen'.
+keskihakuisvoima (https://en.wiktionary.org/wiki/keskihakuisvoima) ExtractionError: Could not verify '-hakuis-'.
+lyhythihainen (https://en.wiktionary.org/wiki/lyhythihainen) ExtractionError: Could not verify '-hihainen'.
+maahinen (https://en.wiktionary.org/wiki/maahinen) ExtractionError: Could not verify '-hinen'.
+ruskehtava (https://en.wiktionary.org/wiki/ruskehtava) ExtractionError: Could not verify '-htava'.
+hyppyhäntäinen (https://en.wiktionary.org/wiki/hyppyh%C3%A4nt%C3%A4inen) ExtractionError: Could not verify '-häntäinen'.
+sotaintoinen (https://en.wiktionary.org/wiki/sotaintoinen) ExtractionError: Could not verify '-intoinen'.
+alhaiso (https://en.wiktionary.org/wiki/alhaiso) ExtractionError: Could not verify '-iso'.
+ylhäisö (https://en.wiktionary.org/wiki/ylh%C3%A4is%C3%B6) ExtractionError: Could not verify '-isö'.
+taittaa (https://en.wiktionary.org/wiki/taittaa) ExtractionError: Could not verify '-ittaa'.
+yhtäjaksoinen (https://en.wiktionary.org/wiki/yht%C3%A4jaksoinen) ExtractionError: Could not verify '-jaksoinen'.
+ainokainen (https://en.wiktionary.org/wiki/ainokainen) ExtractionError: Could not verify '-kainen'.
+karhukainen (https://en.wiktionary.org/wiki/karhukainen) ExtractionError: Could not verify '-kainen'.
+neitokainen (https://en.wiktionary.org/wiki/neitokainen) ExtractionError: Could not verify '-kainen'.
+isokenkäinen (https://en.wiktionary.org/wiki/isokenk%C3%A4inen) ExtractionError: Could not verify '-kenkäinen'.
+pienikokoinen (https://en.wiktionary.org/wiki/pienikokoinen) ExtractionError: Could not verify '-kokoinen'.
+kovakourainen (https://en.wiktionary.org/wiki/kovakourainen) ExtractionError: Could not verify '-kourainen'.
+haaveksia (https://en.wiktionary.org/wiki/haaveksia) ExtractionError: Could not verify '-ksia'.
+halveksia (https://en.wiktionary.org/wiki/halveksia) ExtractionError: Could not verify '-ksia'.
+halveksua (https://en.wiktionary.org/wiki/halveksua) ExtractionError: Could not verify '-ksua'.
+hyväksyä (https://en.wiktionary.org/wiki/hyv%C3%A4ksy%C3%A4) ExtractionError: Could not verify '-ksua'.
+kammoksua (https://en.wiktionary.org/wiki/kammoksua) ExtractionError: Could not verify '-ksua'.
+kummaksua (https://en.wiktionary.org/wiki/kummaksua) ExtractionError: Could not verify '-ksua'.
+kummeksua (https://en.wiktionary.org/wiki/kummeksua) ExtractionError: Could not verify '-ksua'.
+omaksua (https://en.wiktionary.org/wiki/omaksua) ExtractionError: Could not verify '-ksua'.
+oudoksua (https://en.wiktionary.org/wiki/oudoksua) ExtractionError: Could not verify '-ksua'.
+paheksua (https://en.wiktionary.org/wiki/paheksua) ExtractionError: Could not verify '-ksua'.
+pieneksyä (https://en.wiktionary.org/wiki/pieneksy%C3%A4) ExtractionError: Could not verify '-ksua'.
+vieroksua (https://en.wiktionary.org/wiki/vieroksua) ExtractionError: Could not verify '-ksua'.
+väheksyä (https://en.wiktionary.org/wiki/v%C3%A4heksy%C3%A4) ExtractionError: Could not verify '-ksua'.
+vähäksyä (https://en.wiktionary.org/wiki/v%C3%A4h%C3%A4ksy%C3%A4) ExtractionError: Could not verify '-ksua'.
+hyväkuntoinen (https://en.wiktionary.org/wiki/hyv%C3%A4kuntoinen) ExtractionError: Could not verify '-kuntoinen'.
+molempikätisyys (https://en.wiktionary.org/wiki/molempik%C3%A4tisyys) ExtractionError: Could not verify '-kätisyys'.
+oikeakätisyys (https://en.wiktionary.org/wiki/oikeak%C3%A4tisyys) ExtractionError: Could not verify '-kätisyys'.
+haisuliini (https://en.wiktionary.org/wiki/haisuliini) ExtractionError: Could not verify '-liini'.
+koipeliini (https://en.wiktionary.org/wiki/koipeliini) ExtractionError: Could not verify '-liini'.
+söpöliini (https://en.wiktionary.org/wiki/s%C3%B6p%C3%B6liini) ExtractionError: Could not verify '-liini'.
+äitiliini (https://en.wiktionary.org/wiki/%C3%A4itiliini) ExtractionError: Could not verify '-liini'.
+kivulloinen (https://en.wiktionary.org/wiki/kivulloinen) ExtractionError: Could not verify '-lloinen'.
+vaivalloinen (https://en.wiktionary.org/wiki/vaivalloinen) ExtractionError: Could not verify '-lloinen'.
+aihelma (https://en.wiktionary.org/wiki/aihelma) ExtractionError: Could not verify '-lma'.
+laskelma (https://en.wiktionary.org/wiki/laskelma) ExtractionError: Could not verify '-lma'.
+unelma (https://en.wiktionary.org/wiki/unelma) ExtractionError: Could not verify '-lma'.
+iskelmä (https://en.wiktionary.org/wiki/iskelm%C3%A4) ExtractionError: Could not verify '-lmä'.
+kirjelmä (https://en.wiktionary.org/wiki/kirjelm%C3%A4) ExtractionError: Could not verify '-lmä'.
+sinelmä (https://en.wiktionary.org/wiki/sinelm%C3%A4) ExtractionError: Could not verify '-lmä'.
+kaksineuvoinen (https://en.wiktionary.org/wiki/kaksineuvoinen) ExtractionError: Could not verify '-neuvoinen'.
+suolinkainen (https://en.wiktionary.org/wiki/suolinkainen) ExtractionError: Could not verify '-nkainen'.
+tasanko (https://en.wiktionary.org/wiki/tasanko) ExtractionError: Could not verify '-nko'.
+syvänkö (https://en.wiktionary.org/wiki/syv%C3%A4nk%C3%B6) ExtractionError: Could not verify '-nkö'.
+sidonnainen (https://en.wiktionary.org/wiki/sidonnainen) ExtractionError: Could not verify '-nnainen'.
+viidennes (https://en.wiktionary.org/wiki/viidennes) ExtractionError: Could not verify '-nnes'.
+kymmenys (https://en.wiktionary.org/wiki/kymmenys) ExtractionError: Could not verify '-nnys'.
+asunto (https://en.wiktionary.org/wiki/asunto) ExtractionError: Could not verify '-nto'.
+eronto (https://en.wiktionary.org/wiki/eronto) ExtractionError: Could not verify '-nto'.
+havainto (https://en.wiktionary.org/wiki/havainto) ExtractionError: Could not verify '-nto'.
+kaivanto (https://en.wiktionary.org/wiki/kaivanto) ExtractionError: Could not verify '-nto'.
+keinonto (https://en.wiktionary.org/wiki/keinonto) ExtractionError: Could not verify '-nto'.
+kukinto (https://en.wiktionary.org/wiki/kukinto) ExtractionError: Could not verify '-nto'.
+käytäntö (https://en.wiktionary.org/wiki/k%C3%A4yt%C3%A4nt%C3%B6) ExtractionError: Could not verify '-nto'.
+laskento (https://en.wiktionary.org/wiki/laskento) ExtractionError: Could not verify '-nto'.
+luonto (https://en.wiktionary.org/wiki/luonto) ExtractionError: Could not verify '-nto'.
+nautinto (https://en.wiktionary.org/wiki/nautinto) ExtractionError: Could not verify '-nto'.
+nimentö (https://en.wiktionary.org/wiki/niment%C3%B6) ExtractionError: Could not verify '-nto'.
+olento (https://en.wiktionary.org/wiki/olento) ExtractionError: Could not verify '-nto'.
+omanto (https://en.wiktionary.org/wiki/omanto) ExtractionError: Could not verify '-nto'.
+osanto (https://en.wiktionary.org/wiki/osanto) ExtractionError: Could not verify '-nto'.
+seuranto (https://en.wiktionary.org/wiki/seuranto) ExtractionError: Could not verify '-nto'.
+sovinto (https://en.wiktionary.org/wiki/sovinto) ExtractionError: Could not verify '-nto'.
+tulento (https://en.wiktionary.org/wiki/tulento) ExtractionError: Could not verify '-nto'.
+uskonto (https://en.wiktionary.org/wiki/uskonto) ExtractionError: Could not verify '-nto'.
+vajanto (https://en.wiktionary.org/wiki/vajanto) ExtractionError: Could not verify '-nto'.
+laiskiintua (https://en.wiktionary.org/wiki/laiskiintua) ExtractionError: Could not verify '-ntua'.
+näytäntö (https://en.wiktionary.org/wiki/n%C3%A4yt%C3%A4nt%C3%B6) ExtractionError: Could not verify '-ntö'.
+perintö (https://en.wiktionary.org/wiki/perint%C3%B6) ExtractionError: Could not verify '-ntö'.
+ahavoittaa (https://en.wiktionary.org/wiki/ahavoittaa) ExtractionError: Could not verify '-oittaa'.
+paloitella (https://en.wiktionary.org/wiki/paloitella) ExtractionError: Could not verify '-oittaa'.
+rajoittaa (https://en.wiktionary.org/wiki/rajoittaa) ExtractionError: Could not verify '-oittaa'.
+teroittaa (https://en.wiktionary.org/wiki/teroittaa) ExtractionError: Could not verify '-oittaa'.
+aavikoitua (https://en.wiktionary.org/wiki/aavikoitua) ExtractionError: Could not verify '-oitua'.
+asennoitua (https://en.wiktionary.org/wiki/asennoitua) ExtractionError: Could not verify '-oitua'.
+erakoitua (https://en.wiktionary.org/wiki/erakoitua) ExtractionError: Could not verify '-oitua'.
+hurmioitua (https://en.wiktionary.org/wiki/hurmioitua) ExtractionError: Could not verify '-oitua'.
+mataloitua (https://en.wiktionary.org/wiki/mataloitua) ExtractionError: Could not verify '-oitua'.
+muumioitua (https://en.wiktionary.org/wiki/muumioitua) ExtractionError: Could not verify '-oitua'.
+navakoitua (https://en.wiktionary.org/wiki/navakoitua) ExtractionError: Could not verify '-oitua'.
+pajukoitua (https://en.wiktionary.org/wiki/pajukoitua) ExtractionError: Could not verify '-oitua'.
+rappioitua (https://en.wiktionary.org/wiki/rappioitua) ExtractionError: Could not verify '-oitua'.
+sammaloitua (https://en.wiktionary.org/wiki/sammaloitua) ExtractionError: Could not verify '-oitua'.
+tanakoitua (https://en.wiktionary.org/wiki/tanakoitua) ExtractionError: Could not verify '-oitua'.
+vaurioitua (https://en.wiktionary.org/wiki/vaurioitua) ExtractionError: Could not verify '-oitua'.
+kaksipaikkainen (https://en.wiktionary.org/wiki/kaksipaikkainen) ExtractionError: Could not verify '-paikkainen'.
+happipakoinen (https://en.wiktionary.org/wiki/happipakoinen) ExtractionError: Could not verify '-pakoinen'.
+kookkaanpuoleinen (https://en.wiktionary.org/wiki/kookkaanpuoleinen) ExtractionError: Could not verify '-puoleinen'.
+pienipäisyys (https://en.wiktionary.org/wiki/pienip%C3%A4isyys) ExtractionError: Could not verify '-päisyys'.
+kieroselkäisyys (https://en.wiktionary.org/wiki/kieroselk%C3%A4isyys) ExtractionError: Could not verify '-selkäinen'.
+ammuskella (https://en.wiktionary.org/wiki/ammuskella) ExtractionError: Could not verify '-skella'.
+anniskella (https://en.wiktionary.org/wiki/anniskella) ExtractionError: Could not verify '-skella'.
+etsiskellä (https://en.wiktionary.org/wiki/etsiskell%C3%A4) ExtractionError: Could not verify '-skella'.
+haeskella (https://en.wiktionary.org/wiki/haeskella) ExtractionError: Could not verify '-skella'.
+hiiviskellä (https://en.wiktionary.org/wiki/hiiviskell%C3%A4) ExtractionError: Could not verify '-skella'.
+imeskellä (https://en.wiktionary.org/wiki/imeskell%C3%A4) ExtractionError: Could not verify '-skella'.
+istuskella (https://en.wiktionary.org/wiki/istuskella) ExtractionError: Could not verify '-skella'.
+itkeskellä (https://en.wiktionary.org/wiki/itkeskell%C3%A4) ExtractionError: Could not verify '-skella'.
+kanniskella (https://en.wiktionary.org/wiki/kanniskella) ExtractionError: Could not verify '-skella'.
+kosiskella (https://en.wiktionary.org/wiki/kosiskella) ExtractionError: Could not verify '-skella'.
+kuljeskella (https://en.wiktionary.org/wiki/kuljeskella) ExtractionError: Could not verify '-skella'.
+laskeskella (https://en.wiktionary.org/wiki/laskeskella) ExtractionError: Could not verify '-skella'.
+lemmiskellä (https://en.wiktionary.org/wiki/lemmiskell%C3%A4) ExtractionError: Could not verify '-skella'.
+lueskella (https://en.wiktionary.org/wiki/lueskella) ExtractionError: Could not verify '-skella'.
+mietiskellä (https://en.wiktionary.org/wiki/mietiskell%C3%A4) ExtractionError: Could not verify '-skella'.
+naureskella (https://en.wiktionary.org/wiki/naureskella) ExtractionError: Could not verify '-skella'.
+nautiskella (https://en.wiktionary.org/wiki/nautiskella) ExtractionError: Could not verify '-skella'.
+nieleskellä (https://en.wiktionary.org/wiki/nieleskell%C3%A4) ExtractionError: Could not verify '-skella'.
+nuoleskella (https://en.wiktionary.org/wiki/nuoleskella) ExtractionError: Could not verify '-skella'.
+oleskella (https://en.wiktionary.org/wiki/oleskella) ExtractionError: Could not verify '-skella'.
+opiskella (https://en.wiktionary.org/wiki/opiskella) ExtractionError: Could not verify '-skella'.
+painiskella (https://en.wiktionary.org/wiki/painiskella) ExtractionError: Could not verify '-skella'.
+paneskella (https://en.wiktionary.org/wiki/paneskella) ExtractionError: Could not verify '-skella'.
+piereskellä (https://en.wiktionary.org/wiki/piereskell%C3%A4) ExtractionError: Could not verify '-skella'.
+pohdiskella (https://en.wiktionary.org/wiki/pohdiskella) ExtractionError: Could not verify '-skella'.
+pureskella (https://en.wiktionary.org/wiki/pureskella) ExtractionError: Could not verify '-skella'.
+syljeskellä (https://en.wiktionary.org/wiki/syljeskell%C3%A4) ExtractionError: Could not verify '-skella'.
+yskiskellä (https://en.wiktionary.org/wiki/yskiskell%C3%A4) ExtractionError: Could not verify '-skella'.
+käyskennellä (https://en.wiktionary.org/wiki/k%C3%A4yskennell%C3%A4) ExtractionError: Could not verify '-skennella'.
+myyskennellä (https://en.wiktionary.org/wiki/myyskennell%C3%A4) ExtractionError: Could not verify '-skennella'.
+teeskennellä (https://en.wiktionary.org/wiki/teeskennell%C3%A4) ExtractionError: Could not verify '-skennella'.
+työskennellä (https://en.wiktionary.org/wiki/ty%C3%B6skennell%C3%A4) ExtractionError: Could not verify '-skennella'.
+uiskennella (https://en.wiktionary.org/wiki/uiskennella) ExtractionError: Could not verify '-skennella'.
+lainsuojaton (https://en.wiktionary.org/wiki/lainsuojaton) ExtractionError: Could not verify '-suojaton'.
+kausittainen (https://en.wiktionary.org/wiki/kausittainen) ExtractionError: Could not verify '-ttainen'.
+hyvätuloinen (https://en.wiktionary.org/wiki/hyv%C3%A4tuloinen) ExtractionError: Could not verify '-tuloinen'.
+suurituloinen (https://en.wiktionary.org/wiki/suurituloinen) ExtractionError: Could not verify '-tuloinen'.
+aitotumainen (https://en.wiktionary.org/wiki/aitotumainen) ExtractionError: Could not verify '-tumainen'.
+peruutua (https://en.wiktionary.org/wiki/peruutua) ExtractionError: Could not verify '-utu-'.
+alentuvainen (https://en.wiktionary.org/wiki/alentuvainen) ExtractionError: Could not verify '-vainen'.
+alistuvainen (https://en.wiktionary.org/wiki/alistuvainen) ExtractionError: Could not verify '-vainen'.
+päättäväinen (https://en.wiktionary.org/wiki/p%C3%A4%C3%A4tt%C3%A4v%C3%A4inen) ExtractionError: Could not verify '-vainen'.
+rakastavainen (https://en.wiktionary.org/wiki/rakastavainen) ExtractionError: Could not verify '-vainen'.
+vajaavaltainen (https://en.wiktionary.org/wiki/vajaavaltainen) ExtractionError: Could not verify '-valtainen'.
+vakavaraisuus (https://en.wiktionary.org/wiki/vakavaraisuus) ExtractionError: Could not verify '-varaisuus'.
+puuvartinen (https://en.wiktionary.org/wiki/puuvartinen) ExtractionError: Could not verify '-vartinen'.
+hyppyyttää (https://en.wiktionary.org/wiki/hyppyytt%C3%A4%C3%A4) ExtractionError: Could not verify '-yyttää'.
+elävöittää (https://en.wiktionary.org/wiki/el%C3%A4v%C3%B6itt%C3%A4%C3%A4) ExtractionError: Could not verify '-öittää'.
+äitelöittää (https://en.wiktionary.org/wiki/%C3%A4itel%C3%B6itt%C3%A4%C3%A4) ExtractionError: Could not verify '-öittää'.
+jäkälöityä (https://en.wiktionary.org/wiki/j%C3%A4k%C3%A4l%C3%B6ity%C3%A4) ExtractionError: Could not verify '-öityä'.
+jäntevöityä (https://en.wiktionary.org/wiki/j%C3%A4ntev%C3%B6ity%C3%A4) ExtractionError: Could not verify '-öityä'.
+järkevöityä (https://en.wiktionary.org/wiki/j%C3%A4rkev%C3%B6ity%C3%A4) ExtractionError: Could not verify '-öityä'.
+jäätiköityä (https://en.wiktionary.org/wiki/j%C3%A4%C3%A4tik%C3%B6ity%C3%A4) ExtractionError: Could not verify '-öityä'.
+kitkeröityä (https://en.wiktionary.org/wiki/kitker%C3%B6ity%C3%A4) ExtractionError: Could not verify '-öityä'.
+kömpelöityä (https://en.wiktionary.org/wiki/k%C3%B6mpel%C3%B6ity%C3%A4) ExtractionError: Could not verify '-öityä'.
+mehevöityä (https://en.wiktionary.org/wiki/mehev%C3%B6ity%C3%A4) ExtractionError: Could not verify '-öityä'.
+perkelöityä (https://en.wiktionary.org/wiki/perkel%C3%B6ity%C3%A4) ExtractionError: Could not verify '-öityä'.
+pyylevöityä (https://en.wiktionary.org/wiki/pyylev%C3%B6ity%C3%A4) ExtractionError: Could not verify '-öityä'.
+rehevöityä (https://en.wiktionary.org/wiki/rehev%C3%B6ity%C3%A4) ExtractionError: Could not verify '-öityä'.
+äveriöityä (https://en.wiktionary.org/wiki/%C3%A4veri%C3%B6ity%C3%A4) ExtractionError: Could not verify '-öityä'.
+neskahvi (https://en.wiktionary.org/wiki/neskahvi) ExtractionError: Could not verify 'Nes-'.
+adipiinihappo (https://en.wiktionary.org/wiki/adipiinihappo) ExtractionError: Could not verify 'adipiini-'.
+agakonna (https://en.wiktionary.org/wiki/agakonna) ExtractionError: Could not verify 'aga-'.
+antosyaani (https://en.wiktionary.org/wiki/antosyaani) ExtractionError: Could not verify 'anto-'.
+apikaalisilmu (https://en.wiktionary.org/wiki/apikaalisilmu) ExtractionError: Could not verify 'apikaali-'.
+arvuuttaa (https://en.wiktionary.org/wiki/arvuuttaa) ExtractionError: Could not verify 'arv-'.
+astenosfääri (https://en.wiktionary.org/wiki/astenosf%C3%A4%C3%A4ri) ExtractionError: Could not verify 'asteno-'.
+digitaalipiano (https://en.wiktionary.org/wiki/digitaalipiano) ExtractionError: Could not verify 'digitaali-'.
+enimmäisaika (https://en.wiktionary.org/wiki/enimm%C3%A4isaika) ExtractionError: Could not verify 'enimmäis-'.
+foolihappo (https://en.wiktionary.org/wiki/foolihappo) ExtractionError: Could not verify 'fooli-'.
+gliasolu (https://en.wiktionary.org/wiki/gliasolu) ExtractionError: Could not verify 'glia-'.
+glottaaliklusiili (https://en.wiktionary.org/wiki/glottaaliklusiili) ExtractionError: Could not verify 'glottaali-'.
+helavalkea (https://en.wiktionary.org/wiki/helavalkea) ExtractionError: Could not verify 'hela-'.
+helihiihto (https://en.wiktionary.org/wiki/helihiihto) ExtractionError: Could not verify 'heli-'.
+herrasmies (https://en.wiktionary.org/wiki/herrasmies) ExtractionError: Could not verify 'herras-'.
+hipihiljaa (https://en.wiktionary.org/wiki/hipihiljaa) ExtractionError: Could not verify 'hipi-'.
+hirtehishuumori (https://en.wiktionary.org/wiki/hirtehishuumori) ExtractionError: Could not verify 'hirtehis-'.
+huipputaso (https://en.wiktionary.org/wiki/huipputaso) ExtractionError: Could not verify 'huippu-'.
+huipputeknologia (https://en.wiktionary.org/wiki/huipputeknologia) ExtractionError: Could not verify 'huippu-'.
+hätäpoistumistie (https://en.wiktionary.org/wiki/h%C3%A4t%C3%A4poistumistie) ExtractionError: Could not verify 'hätäpoistumis-'.
+ileostomia (https://en.wiktionary.org/wiki/ileostomia) ExtractionError: Could not verify 'ileo-'.
+ilmiselvä (https://en.wiktionary.org/wiki/ilmiselv%C3%A4) ExtractionError: Could not verify 'ilmi-'.
+imaginaariluku (https://en.wiktionary.org/wiki/imaginaariluku) ExtractionError: Could not verify 'imaginaari-'.
+imaginääriluku (https://en.wiktionary.org/wiki/imagin%C3%A4%C3%A4riluku) ExtractionError: Could not verify 'imaginääri-'.
+imaginääriosa (https://en.wiktionary.org/wiki/imagin%C3%A4%C3%A4riosa) ExtractionError: Could not verify 'imaginääri-'.
+imeksiä (https://en.wiktionary.org/wiki/imeksi%C3%A4) ExtractionError: Could not verify 'ime-'.
+irrationaaliluku (https://en.wiktionary.org/wiki/irrationaaliluku) ExtractionError: Could not verify 'irrationaali-'.
+itseisarvo (https://en.wiktionary.org/wiki/itseisarvo) ExtractionError: Could not verify 'itseis-'.
+kaksinaismoraali (https://en.wiktionary.org/wiki/kaksinaismoraali) ExtractionError: Could not verify 'kaksinais-'.
+kampylobakteeri (https://en.wiktionary.org/wiki/kampylobakteeri) ExtractionError: Could not verify 'kampylo-'.
+kapillaariputki (https://en.wiktionary.org/wiki/kapillaariputki) ExtractionError: Could not verify 'kapillaari-'.
+kardinaaliluku (https://en.wiktionary.org/wiki/kardinaaliluku) ExtractionError: Could not verify 'kardinaali-'.
+kertohedelmä (https://en.wiktionary.org/wiki/kertohedelm%C3%A4) ExtractionError: Could not verify 'kerto-'.
+kohokartta (https://en.wiktionary.org/wiki/kohokartta) ExtractionError: Could not verify 'koho-'.
+kohosiirros (https://en.wiktionary.org/wiki/kohosiirros) ExtractionError: Could not verify 'koho-'.
+kohosuo (https://en.wiktionary.org/wiki/kohosuo) ExtractionError: Could not verify 'koho-'.
+kristinoppi (https://en.wiktionary.org/wiki/kristinoppi) ExtractionError: Could not verify 'kristin-'.
+kromosfääri (https://en.wiktionary.org/wiki/kromosf%C3%A4%C3%A4ri) ExtractionError: Could not verify 'kromo-'.
+ksenoarkeologia (https://en.wiktionary.org/wiki/ksenoarkeologia) ExtractionError: Could not verify 'kseno-'.
+ksenobiologia (https://en.wiktionary.org/wiki/ksenobiologia) ExtractionError: Could not verify 'kseno-'.
+kureliivi (https://en.wiktionary.org/wiki/kureliivi) ExtractionError: Could not verify 'kure-'.
+laktovegetaristi (https://en.wiktionary.org/wiki/laktovegetaristi) ExtractionError: Could not verify 'lakto-'.
+liikaherkkyys (https://en.wiktionary.org/wiki/liikaherkkyys) ExtractionError: Could not verify 'liika-'.
+liikanimi (https://en.wiktionary.org/wiki/liikanimi) ExtractionError: Could not verify 'liika-'.
+lineaariavaruus (https://en.wiktionary.org/wiki/lineaariavaruus) ExtractionError: Could not verify 'lineaari-'.
+listautumisanti (https://en.wiktionary.org/wiki/listautumisanti) ExtractionError: Could not verify 'listautumis-'.
+loppuliite (https://en.wiktionary.org/wiki/loppuliite) ExtractionError: Could not verify 'loppu-'.
+lueksia (https://en.wiktionary.org/wiki/lueksia) ExtractionError: Could not verify 'lue-'.
+lumelääke (https://en.wiktionary.org/wiki/lumel%C3%A4%C3%A4ke) ExtractionError: Could not verify 'lume-'.
+lämpölaajenemiskerroin (https://en.wiktionary.org/wiki/l%C3%A4mp%C3%B6laajenemiskerroin) ExtractionError: Could not verify 'lämpölaajenemis-'.
+mustavalkotelevisio (https://en.wiktionary.org/wiki/mustavalkotelevisio) ExtractionError: Could not verify 'mustavalko-'.
+myötähäpeä (https://en.wiktionary.org/wiki/my%C3%B6t%C3%A4h%C3%A4pe%C3%A4) ExtractionError: Could not verify 'myötä-'.
+myötämielinen (https://en.wiktionary.org/wiki/my%C3%B6t%C3%A4mielinen) ExtractionError: Could not verify 'myötä-'.
+myötämäki (https://en.wiktionary.org/wiki/my%C3%B6t%C3%A4m%C3%A4ki) ExtractionError: Could not verify 'myötä-'.
+myötätuuli (https://en.wiktionary.org/wiki/my%C3%B6t%C3%A4tuuli) ExtractionError: Could not verify 'myötä-'.
+mädännäisloinen (https://en.wiktionary.org/wiki/m%C3%A4d%C3%A4nn%C3%A4isloinen) ExtractionError: Could not verify 'mädännäis-'.
+notkelma (https://en.wiktionary.org/wiki/notkelma) ExtractionError: Could not verify 'notke-'.
+nykimisoire (https://en.wiktionary.org/wiki/nykimisoire) ExtractionError: Could not verify 'nykimis-'.
+oikomishoito (https://en.wiktionary.org/wiki/oikomishoito) ExtractionError: Could not verify 'oikomis-'.
+opinnot (https://en.wiktionary.org/wiki/opinnot) ExtractionError: Could not verify 'opi-'.
+osa-aikainen (https://en.wiktionary.org/wiki/osa-aikainen) ExtractionError: Could not verify 'osa-'.
+osajärjestelmä (https://en.wiktionary.org/wiki/osaj%C3%A4rjestelm%C3%A4) ExtractionError: Could not verify 'osa-'.
+osatotuus (https://en.wiktionary.org/wiki/osatotuus) ExtractionError: Could not verify 'osa-'.
+osavaali (https://en.wiktionary.org/wiki/osavaali) ExtractionError: Could not verify 'osa-'.
+osa-aikatyö (https://en.wiktionary.org/wiki/osa-aikaty%C3%B6) ExtractionError: Could not verify 'osa-aika-'.
+paliskunta (https://en.wiktionary.org/wiki/paliskunta) ExtractionError: Could not verify 'palis-'.
+pappissääty (https://en.wiktionary.org/wiki/pappiss%C3%A4%C3%A4ty) ExtractionError: Could not verify 'pappis-'.
+pariskunta (https://en.wiktionary.org/wiki/pariskunta) ExtractionError: Could not verify 'paris-'.
+pehmopaperi (https://en.wiktionary.org/wiki/pehmopaperi) ExtractionError: Could not verify 'pehmo-'.
+pektoliitti (https://en.wiktionary.org/wiki/pektoliitti) ExtractionError: Could not verify 'pekto-'.
+pescovegetaristi (https://en.wiktionary.org/wiki/pescovegetaristi) ExtractionError: Could not verify 'pesco-'.
+polttiaishapero (https://en.wiktionary.org/wiki/polttiaishapero) ExtractionError: Could not verify 'polttiais-'.
+propionihappo (https://en.wiktionary.org/wiki/propionihappo) ExtractionError: Could not verify 'propioni-'.
+puoliintumisaika (https://en.wiktionary.org/wiki/puoliintumisaika) ExtractionError: Could not verify 'puoliintumis-'.
+pömppömaha (https://en.wiktionary.org/wiki/p%C3%B6mpp%C3%B6maha) ExtractionError: Could not verify 'pömppö-'.
+reaaliaikainen (https://en.wiktionary.org/wiki/reaaliaikainen) ExtractionError: Could not verify 'reaali-'.
+rutiköyhä (https://en.wiktionary.org/wiki/rutik%C3%B6yh%C3%A4) ExtractionError: Could not verify 'ruti-'.
+saarnastuoli (https://en.wiktionary.org/wiki/saarnastuoli) ExtractionError: Could not verify 'saarnas-'.
+salvuporsas (https://en.wiktionary.org/wiki/salvuporsas) ExtractionError: Could not verify 'salvu-'.
+seisomisaika (https://en.wiktionary.org/wiki/seisomisaika) ExtractionError: Could not verify 'seisomis-'.
+sekopää (https://en.wiktionary.org/wiki/sekop%C3%A4%C3%A4) ExtractionError: Could not verify 'seko-'.
+seurannaisvaikutus (https://en.wiktionary.org/wiki/seurannaisvaikutus) ExtractionError: Could not verify 'seurannais-'.
+simultaanitulkki (https://en.wiktionary.org/wiki/simultaanitulkki) ExtractionError: Could not verify 'simultaani-'.
+sivukatu (https://en.wiktionary.org/wiki/sivukatu) ExtractionError: Could not verify 'sivu-'.
+sivukierre (https://en.wiktionary.org/wiki/sivukierre) ExtractionError: Could not verify 'sivu-'.
+sivuosa (https://en.wiktionary.org/wiki/sivuosa) ExtractionError: Could not verify 'sivu-'.
+sivutuuli (https://en.wiktionary.org/wiki/sivutuuli) ExtractionError: Could not verify 'sivu-'.
+solisluu (https://en.wiktionary.org/wiki/solisluu) ExtractionError: Could not verify 'solis-'.
+solisvaltimo (https://en.wiktionary.org/wiki/solisvaltimo) ExtractionError: Could not verify 'solis-'.
+statoliitti (https://en.wiktionary.org/wiki/statoliitti) ExtractionError: Could not verify 'stato-'.
+sudeettisavolainen (https://en.wiktionary.org/wiki/sudeettisavolainen) ExtractionError: Could not verify 'sudeetti-'.
+supisuomalainen (https://en.wiktionary.org/wiki/supisuomalainen) ExtractionError: Could not verify 'supi-'.
+syttöpuu (https://en.wiktionary.org/wiki/sytt%C3%B6puu) ExtractionError: Could not verify 'syttö-'.
+säteissaha (https://en.wiktionary.org/wiki/s%C3%A4teissaha) ExtractionError: Could not verify 'säteis-'.
+temporaalilohko (https://en.wiktionary.org/wiki/temporaalilohko) ExtractionError: Could not verify 'termporaali-'.
+tiivistymisjuova (https://en.wiktionary.org/wiki/tiivistymisjuova) ExtractionError: Could not verify 'tiivistymis-'.
+tiivistymisvana (https://en.wiktionary.org/wiki/tiivistymisvana) ExtractionError: Could not verify 'tiivistymis-'.
+tipotiessään (https://en.wiktionary.org/wiki/tipotiess%C3%A4%C3%A4n) ExtractionError: Could not verify 'tipo-'.
+toppakangas (https://en.wiktionary.org/wiki/toppakangas) ExtractionError: Could not verify 'toppa-'.
+troposfääri (https://en.wiktionary.org/wiki/troposf%C3%A4%C3%A4ri) ExtractionError: Could not verify 'tropos-'.
+ylitulvimissuoja (https://en.wiktionary.org/wiki/ylitulvimissuoja) ExtractionError: Could not verify 'tulvimis-'.
+täsmäpommi (https://en.wiktionary.org/wiki/t%C3%A4sm%C3%A4pommi) ExtractionError: Could not verify 'täsmä-'.
+töpeksiä (https://en.wiktionary.org/wiki/t%C3%B6peksi%C3%A4) ExtractionError: Could not verify 'töpe-'.
+ukkovarvas (https://en.wiktionary.org/wiki/ukkovarvas) ExtractionError: Could not verify 'ukko-'.
+uneksia (https://en.wiktionary.org/wiki/uneksia) ExtractionError: Could not verify 'une-'.
+uudisasukas (https://en.wiktionary.org/wiki/uudisasukas) ExtractionError: Could not verify 'uudis-'.
+uudismuodoste (https://en.wiktionary.org/wiki/uudismuodoste) ExtractionError: Could not verify 'uudis-'.
+uudissana (https://en.wiktionary.org/wiki/uudissana) ExtractionError: Could not verify 'uudis-'.
+varoaika (https://en.wiktionary.org/wiki/varoaika) ExtractionError: Could not verify 'varo-'.
+varuskunta (https://en.wiktionary.org/wiki/varuskunta) ExtractionError: Could not verify 'varus-'.
+varusmies (https://en.wiktionary.org/wiki/varusmies) ExtractionError: Could not verify 'varus-'.
+vastinkulma (https://en.wiktionary.org/wiki/vastinkulma) ExtractionError: Could not verify 'vastin-'.
+vastinpiste (https://en.wiktionary.org/wiki/vastinpiste) ExtractionError: Could not verify 'vastin-'.
+vastinsivu (https://en.wiktionary.org/wiki/vastinsivu) ExtractionError: Could not verify 'vastin-'.
+viivästymisaika (https://en.wiktionary.org/wiki/viiv%C3%A4stymisaika) ExtractionError: Could not verify 'viivästymis-'.
+vitaalielin (https://en.wiktionary.org/wiki/vitaalielin) ExtractionError: Could not verify 'vitaali-'.
+vuorovaikutus (https://en.wiktionary.org/wiki/vuorovaikutus) ExtractionError: Could not verify 'vuoro-'.
+yliäänimatkustajakone (https://en.wiktionary.org/wiki/yli%C3%A4%C3%A4nimatkustajakone) ExtractionError: Could not verify 'yliääni-'.
+
+hirven nenäsaivartaja (https://en.wiktionary.org/wiki/hirven_nen%C3%A4saivartaja) ExtractionError: Unreconcilable compound structure.
+hopealusikka (https://en.wiktionary.org/wiki/hopealusikka) ExtractionError: Unreconcilable compound structure.
+irtautumislauseke (https://en.wiktionary.org/wiki/irtautumislauseke) ExtractionError: Unreconcilable compound structure.
+kiirastorstai (https://en.wiktionary.org/wiki/kiirastorstai) ExtractionError: Unreconcilable compound structure.
+kiirastuli (https://en.wiktionary.org/wiki/kiirastuli) ExtractionError: Unreconcilable compound structure.
+niinkuin märkä palaa (https://en.wiktionary.org/wiki/niinkuin_m%C3%A4rk%C3%A4_palaa) ExtractionError: Unreconcilable compound structure.
+ottaa parempaan käyttöön (https://en.wiktionary.org/wiki/ottaa_parempaan_k%C3%A4ytt%C3%B6%C3%B6n) ExtractionError: Unreconcilable compound structure.
+perinteinen hiihtotapa (https://en.wiktionary.org/wiki/perinteinen_hiihtotapa) ExtractionError: Unreconcilable compound structure.
+pro gradu -tutkielma (https://en.wiktionary.org/wiki/pro_gradu_-tutkielma) ExtractionError: Unreconcilable compound structure.
+pro gradu -työ (https://en.wiktionary.org/wiki/pro_gradu_-ty%C3%B6) ExtractionError: Unreconcilable compound structure.
+sikiön alkoholioireyhtymä (https://en.wiktionary.org/wiki/siki%C3%B6n_alkoholioireyhtym%C3%A4) ExtractionError: Unreconcilable compound structure.
+srilankanhäntähiiri (https://en.wiktionary.org/wiki/srilankanh%C3%A4nt%C3%A4hiiri) ExtractionError: Unreconcilable compound structure.
+suuri sali (https://en.wiktionary.org/wiki/suuri_sali) ExtractionError: Unreconcilable compound structure.
