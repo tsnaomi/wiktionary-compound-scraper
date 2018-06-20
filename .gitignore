@@ -11,6 +11,7 @@ finnseg-rnn.py
 *.errors
 *.errors.*
 extract.cmd
+extract.sh
 data.py
 postprocess.py
 word_li
