@@ -4,13 +4,12 @@ __pycache__/
 .DS_Store
 
 *.data
+*.data.*
 *.errors
 *.errors.*
 *.log
 extract.cmd
 extract.sh
-data.py
-postprocess.py
 word_li
 pull.sh
 push.sh
