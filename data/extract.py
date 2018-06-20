@@ -3,69 +3,48 @@ import re
 
 from os.path import commonprefix
 from sys import stderr
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 from urllib.request import quote, urlopen
-from warnings import catch_warnings, warn
 
-from bidict import bidict
 from bs4 import BeautifulSoup
 from jsmin import jsmin
 
+from lang import LANGUAGE_DATA, WIKI_EN_URL, WIKI_LANGUAGES
 
-# Languages -------------------------------------------------------------------
-
-with open('lang/lang.json', 'r+') as f:
-    LANG_DATA = json.load(f)
-
-LANGUAGES = bidict({k: v['language'] for k, v in LANG_DATA.items()})
-
-
-# URLs ------------------------------------------------------------------------
-
-EN_URL = 'https://en.wiktionary.org'
-
-WIKI_URL = 'https://%s.wiktionary.org/wiki/'
-
-LEMMA_URL = EN_URL + '/w/index.php?title=Category:%s_lemmas&from=A'
-
-
-# Compiled regexes ------------------------------------------------------------
-
-ETYMOLOGY_P = re.compile(r'^Etymology')
-
-BIG_KAHUNA_P = re.compile(
-    r'<i[^>]+>(?:<a[^>]+>)?[\w-]+(?:</a>)?</i>(?:[\w\s]+\+[\w\s]+'
-    r'<i[^>]+>(?:<a[^>]+>)?[\w-]+(?:</a>)?</i>)+')
-
-WORDS_P = re.compile(r'<i[^>]+>(?:<a[^>]+>)?([\w-]+)(?:</a>)?</i>')
-
-# COMPOUND_ETYMOLOGY = re.compile(r'([\w\d\-]+(?: +\+ +[\w\d\-]+)+)')
-
-COMPOUND_SPLIT_P = re.compile(r'(-|=)')
-
-
-# Extaction object ------------------------------------------------------------
 
 class Extract:
 
-    def __init__(self, lang, grammar_fn=None, min_word=3, words=[], url=None):
-        try:
-            if len(lang) == 2:  # if `lang` is a language code
-                self.code = lang.lower()
-                self.lang = LANGUAGES[self.code]
+    ETYMOLOGY_P = re.compile(r'^Etymology')
 
-            else:  # if `lang` is the name of a language
-                self.lang = lang.title()
-                self.code = LANGUAGES.inv[lang]
+    BIG_KAHUNA_P = re.compile(
+        r'<i[^>]+>(?:<a[^>]+>)?[\w-]+(?:</a>)?</i>(?:[\w\s]+\+[\w\s]+'
+        r'<i[^>]+>(?:<a[^>]+>)?[\w-]+(?:</a>)?</i>)+')
+
+    WORDS_P = re.compile(r'<i[^>]+>(?:<a[^>]+>)?([\w-]+)(?:</a>)?</i>')
+
+    COMPOUND_SPLIT_P = re.compile(r'(-|=)')
+
+    def __init__(self, lang, grammar_fn=None, debug_li=[], url=None):
+        try:
+            # if `lang` is a language code
+            self.code = lang.lower()
+            self.lang = WIKI_LANGUAGES[self.code]
 
         except KeyError:
-            raise ExtractionError('Unsupported language: %s.' % lang)
+
+            try:
+                # if `lang` is the name of a language
+                self.lang = lang.title()
+                self.code = WIKI_LANGUAGES.inv[self.lang]
+
+            except KeyError:
+                raise ExtractionError('Unsupported language: %s.' % lang)
 
         # the language's Wiktionary url, e.g., https://fi.wiktionary.org/wiki/
-        self.wiki = LANG_DATA[self.code].get('wiki')
+        self.wiki = LANGUAGE_DATA[self.code].get('wiki')
 
         # the English Wiktionary's url to the language's lemmas
-        self.lemmas = LANG_DATA[self.code]['lemmas']
+        self.lemmas = LANGUAGE_DATA[self.code]['lemmas']
 
         if not grammar_fn:
             grammar_fn = 'lang/%s.json' % self.code
@@ -75,34 +54,40 @@ class Extract:
 
         # this method takes in a part-of-speech category and returns its tag/
         # abbreviation (e.g., 'N' for 'Noun')
-        self.get_tag = lambda pos: grammar['TAGS'][pos.lower()]
+        self.get_tag = lambda pos: grammar['POS'][pos.lower()]
 
         # a list of affixes in both English and the target language
         self.affixes = grammar['AFFIXES']
 
         # a regular expression that only captures words whose first constiuent
         # word is at least `min-word` in length
-        self.min_word_p = re.compile(r'^\w{%i,}' % min_word)
+        self.min_word_p = re.compile(r'^\w{%i,}' % grammar['min_word'])
 
         # a regular expression that matches part-of-speech categories
-        self.pos_p = re.compile(r'^(%s)' % r'|'.join(grammar['POS']), re.I)
+        self.pos_p = re.compile(
+            r'^(%s)' % r'|'.join(grammar['POS'].keys()), re.I)
 
-        # if `words` is given, only the words listed in `words` will get
+        # if `debug_li` is given, only the words listed in `debug_wil` will get
         # extracted...
-        if words:
-            self.from_list(words)
+        if debug_li:
+            self.debug(debug_li)
 
-        # otherwise, it's time to walk through Wiktionary...
+        # otherwise, scrape Wiktionary, beginning with `url`...
         else:
+
+            # if no `url` is provided, begin with the target language's lemmas,
+            # scraping them in alphabetical order
+            if not url:
+                url = WIKI_EN_URL + \
+                    '/w/index.php?title=Category:%s_lemmas&from=%s' % \
+                    (self.lang, grammar['first_letter'])
+
             self.walk(url=url)
 
-    # extraction --------------------------------------------------------------
+    # scrape ------------------------------------------------------------------
 
-    def walk(self, url=None):
-        '''Take a walk through Wiktionary...'''
-        if not url:
-            url = LEMMA_URL % self.lang
-
+    def walk(self, url):
+        '''Walk through Wiktionary, beginning with `url`.'''
         soup = BeautifulSoup(urlopen(url), 'html.parser')
         page = soup.find_all('a', title='Category:%s lemmas' % self.lang)[-1]
         words = soup.find('div', id='mw-pages') \
@@ -112,58 +97,30 @@ class Extract:
 
         for div in words:
             for a in div.find_all('a', string=self.min_word_p):
-                href = EN_URL + a.get('href')
+                href = WIKI_EN_URL + a.get('href')
 
                 try:
-                    # some errors are non-fatal...
-                    with catch_warnings(record=True) as w:
-                        self.extract(a.text,  href)
-                        print()
+                    self.extract(a.text,  href)
+                    print()
 
-                        for warning in w:
-                            self.print_warning(a.text, href, warning)
-
-                # ...some errors aren't worth noting...
-                except SilentError:
+                except SilentError:  # some errors aren't worth mentioning
                     pass
 
-                # ...while other errors are fatal
                 except Exception as error:
                     self.print_error(a.text, href, error)
 
         if page.text == 'next page':
-            return self.walk(EN_URL + page.get('href'))
-
-    def from_list(self, words):
-        ''' '''
-        if isinstance(words, str):
-            with open(words, 'r+') as f:
-                words = f.readlines()
-
-        words = [quote(w.replace('\n', '').replace(' ', '_')) for w in words]
-
-        for orth in words:
-            if orth:
-                href = EN_URL + '/wiki/' + orth
-
-                try:
-                    # TODO: de-duplicate
-                    with catch_warnings(record=True) as w:
-                        self.extract(orth, href)
-
-                        for warning in w:
-                            self.print_warning(orth, href, warning)
-
-                except ExtractionError as error:
-                    self.print_error(orth, href, error)
-
-                print()
+            return self.walk(WIKI_EN_URL + page.get('href'))
 
     def extract(self, orth, url):
-        ''' '''
+        '''Extract lexical information about `orth` from `url`.
+
+        Lexical information includes part of speech, declensions, and
+        compound segmentation(s).
+        '''
         soup = self.get_finnish_soup(url)
         pos = self.get_pos(soup)
-        compounds = self.get_compound(orth, soup)
+        compounds = self.get_compounds(orth, soup)
         declensions = self.get_declensions(soup, orth, pos)
 
         del soup
@@ -173,7 +130,7 @@ class Extract:
                 self.print_annotation(orth, pos, compound)
 
                 for _orth, _compound in self.split_declensions(
-                        compound, orth, pos, declensions):
+                        declensions, compound, orth):
                     self.print_annotation(_orth, pos, _compound)
 
         elif compounds:
@@ -186,10 +143,15 @@ class Extract:
             for declension in declensions:
                 self.print_annotation(declension, pos)
 
-    def get_finnish_soup(self, url):  # TODO: rename
-        ''' '''
+    def get_finnish_soup(self, url):
+        '''Return parsed HTML about the target language from `url.`
+
+        Since a single Wiktionary page can address the meaning of the same
+        word/string across different languages, this method returns the
+        BeautifulSoup-parsed HTML section that pertains to the target language.
+        '''
         soup = BeautifulSoup(urlopen(url), 'html.parser')
-        section = soup.find('span', class_='mw-headline', id='Finnish')
+        section = soup.find('span', class_='mw-headline', id=self.lang)
         finnish = ''
 
         for tag in section.parent.next_siblings:
@@ -201,73 +163,67 @@ class Extract:
 
         return BeautifulSoup(finnish, 'html.parser')
 
-    # print -------------------------------------------------------------------
+    def debug(self, debug_li):
+        '''Print the annotations for the words listed in `debug_li`.
 
-    def print_warning(self, orth, url, warning):
-        ''' '''
-        print(
-            '%s (%s) ExtractionWarning: %s' %
-            (orth, url, str(warning.message)))
+        This method is intended to help debug the scraper. If `debug_li` is a
+        list, this method print annotations for the words listed in `debug_li`.
+        If `debug_li` is a string, it will treat the string as a filename and
+        attempt to read a list of words from the file.
+        '''
+        if isinstance(debug_li, str):
+            with open(debug_li, 'rb') as f:
+                debug_li = f.readlines()
 
-    def print_error(self, orth, url, error):
-        ''' '''
-        print(
-            '%s (%s) %s: %s' % (orth, url, type(error).__name__, str(error)),
-            file=stderr)  # noqa
+        for orth in debug_li:
+            if orth:
+                orth = orth.decode('utf-8').replace('\n', '')
+                href = WIKI_EN_URL + '/wiki/' + quote(orth.replace(' ', '_'))
 
-    def print_annotation(self, *annotation):
-        '''Format and print `annotation`.'''
-        print(' ; '.join(annotation))
+                try:
+                    self.extract(orth, href)
+
+                except ExtractionError as error:
+                    self.print_error(orth, href, error)
+
+                print()
 
     # part of speech ----------------------------------------------------------
 
-    # TODO: Only include wanted POS categories in `grammar_fn`, then raise a
-    # if `SilentIgnore` is no POS is found. No need to extract unwanted POS.
     def get_pos(self, soup):
-        '''Return the (first) part of speech listed in `soup`.'''
+        '''Return the parts of speech listed in `soup`.'''
         pos = soup.find_all('span', class_='mw-headline', string=self.pos_p)
 
         if pos:
-            try:
-                return ' '.join(list(set(self.get_tag(p.text) for p in pos)))
+            tags = []
 
-            except KeyError:
-                raise SilentError('Unwanted POS.')
+            for p in pos:
+                tag = self.get_tag(p.text)
 
-        raise ExtractionError('Could not identify POS.')
+                # in lieu of calling `set()`, this preserves the order of the
+                # tags listed in `soup`
+                if tag not in tags:
+                    tags.append(tag)
+
+            return ' '.join(tags)
+
+        raise SilentError('Unwanted POS.')
 
     # compound segmentation ---------------------------------------------------
 
-    def get_compound(self, orth, soup):
-        '''Identify the word boundaries in `orth` from the word's etymology.'''
+    def get_compounds(self, orth, soup):  # noqa
+        '''Identify the various compound segmentations for `orth` (if any).'''
+        etymologies = soup.find_all(
+            class_='mw-headline', string=Extract.ETYMOLOGY_P)
+
+        # without any etymology, can't confirm if `orth` is simplex or complex
+        if not etymologies:
+            raise SilentError('No etymology. Boo.')
+
         compounds = []
-        yea = False
-        goal = self.baseify(orth)
+        errors = []
 
-        for etymology in self.get_compound_etymology(orth, soup):
-
-            if '=' in etymology:
-                yea = True
-
-                if self.baseify(etymology) != goal:
-                    etymology = self.reconcile_etymology(etymology, goal)
-
-                if self.baseify(etymology) != goal:
-                    warn('%s != %s' % (orth, etymology), ExtractionWarning)
-
-                compounds.append(etymology)
-
-        if yea and not compounds:
-            raise ExtractionError('Unreconcilable compound structure.')
-
-        return compounds
-
-    def get_compound_etymology(self, orth, soup):  # noqa WELP
-        ''' '''
-        compounds = 0
-        errors = 0
-
-        for etym in soup.find_all(class_='mw-headline', string=ETYMOLOGY_P):
+        for etym in etymologies:
             etym = etym.find_parent(['h3', 'h4']).find_next_sibling(['p'])
 
             try:
@@ -277,33 +233,109 @@ class Extract:
             except AttributeError:
                 continue
 
-            for split in BIG_KAHUNA_P.findall(str(etym).replace('\u200e', '')):
-                split = WORDS_P.findall(split)
+            for split in Extract.BIG_KAHUNA_P.findall(
+                    str(etym).replace('\u200e', '')):
 
                 try:
-                    for i, comp in enumerate(split):
-                        if '-' in comp:
-                            _comp = comp.replace('-', '')
-                            a = etym.find('a', string=re.compile(r'%s' % comp))
+                    compounds.append(self.get_compound(orth, split, etym))
 
-                            if self.is_word(comp, a):
-                                split[i] = _comp
-
-                    yield '='.join(split).replace('-=', '') \
-                        .replace('=-', '').replace('-=-', '').lower()
-
-                    compounds += 1
+                except SilentError:
+                    continue
 
                 except ExtractionError as error:
-                    errors += 1
-                    warn(str(error), ExtractionWarning)
+                    errors.append(error)
 
+        # raise the first encountered error if no compound structures were
+        # successfully derived
         if errors and not compounds:
-            raise ExtractionError('Could not identify compound composition.')
+            raise errors[0]
 
-    def reconcile_etymology(self, compound, orth):
-        '''Reconcile the etymology (`compound`) with `orth`.'''
-        split = COMPOUND_SPLIT_P.split(compound)
+        # return any successfully derived compound structures or an empty list
+        # in the event of zero errors and no compounds
+        return compounds
+
+    def get_compound(self, orth, split, etymology_soup):
+        '''Identify the word boundaries in `orth` from the word's etymology.
+
+        Note that `split` is a list of strings derived from `etymology_soup`,
+        the BeautifulSoup-parsed HTML containing the etymology of `orth`.
+        '''
+        affix = '>-' in split or '-<' in split
+        split = Extract.WORDS_P.findall(split)
+
+        if affix:
+            affix = 0
+            errors = []
+
+            for i, comp in enumerate(split):
+                try:
+                    if '-' not in comp or self.is_word(
+                            comp, etymology_soup.find('a', string=comp)):
+                        split[i] = comp.replace('-', '')
+
+                    else:
+                        affix += 1
+
+                except ExtractionError as error:
+                    errors.append(error)
+
+            # if `split` contains all affixes and only one UNK, it is
+            # necessarily simplex and should not raise an error
+            if errors and affix != len(split) - 1:
+                raise errors[0]
+
+        compound = self.format_compound(split)
+
+        # toss simplex words
+        if '=' not in compound:
+            raise SilentError('False alarm. Not a compound.')
+
+        goal = self.baseify(orth)
+
+        if self.baseify(compound) != goal:
+            compound = self.reconcile(compound, goal)
+
+            # TODO: confirm that this step is (un)necessary
+            if self.baseify(compound) != goal:
+                raise ExtractionError('Unreconcilable compound structure.')
+
+        return compound
+
+    def is_word(self, term, a_tag=None):
+        '''Confirm that `term` is a word and not an affix.
+
+        This method first attempts to look up `term` in the English Wiktionary
+        url (https://en.wiktionary.org/<term>) provided in `a_tag`. If this
+        fails, it tries to look up `term` in the given language's Wiktionary
+        (e.g., for Finnish: https://fi.wiktionary.org/<term>).
+        '''
+        if not a_tag or 'new' in a_tag.get('class', []):
+            url = self.wiki + quote(term)
+
+        else:
+            url = WIKI_EN_URL + a_tag.get('href')
+
+        try:
+            soup = BeautifulSoup(urlopen(url), 'html.parser')
+            headers = soup.find_all('span', class_='mw-headline')
+
+            return all([h.text.lower() not in self.affixes for h in headers])
+
+        except (HTTPError, URLError):
+            raise ExtractionError("Could not verify '%s'." % term)
+
+    def reconcile(self, compound, orth):
+        '''Split `orth` based on the split of `compound`.
+
+        This method is invoked when the orthography or "baseified" form of
+        `compound` does not match the orthography of `orth`. This method
+        attempts to reconcile their differences to split `orth` appropriately.
+
+        E.g., if the compound is etymology is 'aaltomainen=uus', but `orth` is
+        `aaltomaisuus`, then this method will generate 'aaltomais=uus' as the
+        segmentation of `orth`.
+        '''
+        split = Extract.COMPOUND_SPLIT_P.split(compound)
         compound = []
         base = orth
 
@@ -330,28 +362,14 @@ class Extract:
 
         return ''.join(compound[::-1])
 
-    def is_word(self, morph, a_tag=None):
-        '''Confirm that `morph` is a word and not an affix.
+    def format_compound(self, split):
+        '''Convert `split` to a string and format its delimiters.
 
-        This method first attempts to look up `morph` in the English Wiktionary
-        url (https://en.wiktionary.org/<morph>) provided in `a_tag`. If this
-        fails, it tries to look up `morph` in the given language's Wiktionary
-        (e.g., for Finnish: https://fi.wiktionary.org/<morph>).
+        The variable `split` is passed in as a list of constituents
+        (words, affixes, etc.)
         '''
-        if not a_tag or 'new' in a_tag.get('class', []):
-            url = self.wiki + quote(morph)
-
-        else:
-            url = EN_URL + a_tag.get('href')
-
-        try:
-            soup = BeautifulSoup(urlopen(url), 'html.parser')
-            headers = soup.find_all('span', class_='mw-headline')
-
-            return all([h.text.lower() not in self.affixes for h in headers])
-
-        except HTTPError:
-            raise ExtractionError("Could not verify '%s'." % morph)
+        return '='.join(split).replace('-=', '').replace('=-', '') \
+            .replace('-=-', '').lower()
 
     def baseify(self, text):
         '''Strip `text` of delimiters and make it lowercase.'''
@@ -371,11 +389,11 @@ class Extract:
                 # for adjectives, include comparative and superlative forms
                 if 'ADJ' in pos:
                     declensions.extend(re.findall(
-                        r'(?:comparative|superlative) ([a-z0-9\-äö]+)',
+                        r'(?:comparative|superlative) (\w+)',
                         soup.text))
 
                 # for verbs, strip auxiliaries/modals
-                elif 'V' in pos:
+                if 'V' in pos:
                     n = orth.count(' ')
                     declensions = [
                         d.split(' ', d.count(' ')-n)[-1] for d in declensions]
@@ -387,9 +405,8 @@ class Extract:
 
         DECLENSIONS = list(set(DECLENSIONS))
 
-        # attempt to remove the default orthography (which is most likely the
-        # nominative singular form), so that it can print first in
-        # self.extract() without duplication
+        # remove the default orthography (most likely, the nominative singular
+        # form), so that it prints first in self.extract() without duplication
         try:
             DECLENSIONS.remove(orth)
 
@@ -398,8 +415,8 @@ class Extract:
 
         return DECLENSIONS
 
-    def split_declensions(self, compound, orth, pos, declensions):
-        '''Mark the word boundaries in each declension.'''
+    def split_declensions(self, declensions, compound, orth):
+        '''Delimit the word boundaries in each declension with '='.'''
         prefix = commonprefix(declensions)
         i, j = len(prefix), len(orth)
         prefix = compound[:-(j - i)] if j > i else compound
@@ -407,24 +424,25 @@ class Extract:
         for _orth in declensions:
             yield _orth, prefix + _orth[i:]
 
+    # print -------------------------------------------------------------------
 
-# Error handling --------------------------------------------------------------
+    def print_error(self, orth, url, error):
+        '''Print an informative error message for `orth`.'''
+        print(
+            '%s (%s) %s: %s' % (orth, url, type(error).__name__, str(error)),
+            file=stderr)  # noqa
 
-class ExtractionWarning(Warning):
-    '''My very own Extraction Warning.'''
-    pass
+    def print_annotation(self, *annotation):
+        '''Format and print `annotation`.'''
+        print(' ; '.join(annotation))
 
 
 class ExtractionError(Exception):
-    '''My very own Extraction Error.'''
     pass
 
 
 class SilentError(ExtractionError):
-    '''An error unworthy of acknowledgement.'''
     pass
-
-# -----------------------------------------------------------------------------
 
 
 if __name__ == '__main__':
@@ -433,18 +451,14 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-l', '--lang', default='Finnish')
     parser.add_argument('-g', '--grammar_fn', default=None)
-    parser.add_argument('-m', '--min_word', type=int, default=3)
-    parser.add_argument('-wl', '--words_li', nargs='*', default=[])
-    parser.add_argument('-wf', '--word_fn', default='')
+    parser.add_argument('-d', '--debug_li', nargs='*', default=[])
+    parser.add_argument('-D', '--debug_fn', default='')
     parser.add_argument('-u', '--url', default=None)
     args = parser.parse_args()
-
-    words = args.word_fn or args.words_li
 
     Extract(
         lang=args.lang,
         grammar_fn=args.grammar_fn,
-        min_word=args.min_word,
+        debug_li=args.debug_li or args.debug_fn,
         url=args.url,
-        words=words,
         )

@@ -10,5 +10,9 @@ finnseg-rnn.py
 *.data
 *.errors
 *.errors.*
+extract.cmd
+data.py
 postprocess.py
 word_li
+pull.sh
+push.sh

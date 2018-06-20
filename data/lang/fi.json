@@ -7,6 +7,14 @@
     "en_url": "https://en.wiktionary.org/wiki/Category:Finnish_language",
     "lang_url": "https://fi.wiktionary.org",
 
+    // This specifies the minimum length of an alphabetic sequence that an
+    // extracted word may have. For instance, if `min_word` is set to 3, a
+    // words like 'en' or 'a-b-c' will not get exctracted.
+    "min_word": 3,
+
+    // This specifies the first of the target language's alphabet.
+    "first_letter": "A", 
+
     // "AFFIXES" lists the names of different types of affixes (lowercase) in
     // English AND  in the target language. This list is used to determine if
     // a particular string is a word or an affix. Any affix type that is not
@@ -20,48 +28,10 @@
         "suffiksit"     // suffix
     ],
 
-    // Ideally, "POS" includes all of the part-of-speech categories (lowercase)
-    // listed in Wiktionary for the target language. Any POS category not
-    // included below that `Extract` encounters will throw an ExtractionError.
-    // TODO: Only include wanted POS categories.
-    "POS": [
-        // content words
-        "noun",
-        "verb",
-        "adjective",
-        "adverb",
-
-        // affixes
-        "prefix",
-        "suffix",
-
-        // function words
-        "conjunction",
-        "interjection",
-        "numeral",
-        "postposition",
-        "preposition",
-        "pronoun",
-        "proper noun",  // whatever
-
-        // phrases
-        "phrase",
-        "proverb",
-
-        // particles, clitics, etc.
-        "clitic",
-        "particle",
-        "root",
-
-        // misc.
-        "abbreviation",
-        "acronym",
-        "initialism"
-    ],
-
-    // "TAGS" includes a mapping from POS categories to POS tags. Words with
-    // a POS category not mapped below will not be extracted.
-    "TAGS": {
+    // "POS" includes a mapping from part-of-speech categories (lowercase)
+    // to part-of-speech tags. `Extract` with only extract words with the POS
+    // categories mapped below.
+    "POS": {
         "adjective": "ADJ",
         "adverb": "ADV",
         "conjunction": "CONJ",
@@ -72,5 +42,19 @@
         "preposition": "P",
         "pronoun": "PRO",
         "verb": "V"
+
+        // // Ignoring...
+        // "prefix"
+        // "infix"
+        // "suffix"    
+        // "proper noun"
+        // "phrase"
+        // "proverb"
+        // "clitic"
+        // "particle"
+        // "root"
+        // "abbreviation"
+        // "acronym"
+        // "initialism"
     }
 }
