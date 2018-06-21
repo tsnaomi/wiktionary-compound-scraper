@@ -16,6 +16,7 @@ class Extract:
 
     ETYMOLOGY_P = re.compile(r'^Etymology')
 
+    # extract compound etymologies from nested i/a tags
     BIG_KAHUNA_P = re.compile(
         r'<i[^>]+>(?:<a[^>]+>)?[\w-]+(?:</a>)?</i>(?:[\w\s]+\+[\w\s]+'
         r'<i[^>]+>(?:<a[^>]+>)?[\w-]+(?:</a>)?</i>)+')
@@ -23,6 +24,10 @@ class Extract:
     WORDS_P = re.compile(r'<i[^>]+>(?:<a[^>]+>)?([\w-]+)(?:</a>)?</i>')
 
     COMPOUND_SPLIT_P = re.compile(r'(-|=)')
+
+    # require that words have minimally have one alphabetic character
+    # (stricter MIN-WRD requirements can be imposed during post-processing)
+    MIN_WORD_P = re.compile(r'\w+')
 
     def __init__(self, lang, grammar_fn=None, debug_li=[], url=None):
         try:
@@ -59,10 +64,6 @@ class Extract:
         # a list of affixes in both English and the target language
         self.affixes = grammar['AFFIXES']
 
-        # a regular expression that only captures words whose first constiuent
-        # word is at least `min-word` in length
-        self.min_word_p = re.compile(r'^\w{%i,}' % grammar['min_word'])
-
         # a regular expression that matches part-of-speech categories
         self.pos_p = re.compile(
             r'^(%s)' % r'|'.join(grammar['POS'].keys()), re.I)
@@ -96,7 +97,7 @@ class Extract:
         del soup
 
         for div in words:
-            for a in div.find_all('a', string=self.min_word_p):
+            for a in div.find_all('a', string=Extract.MIN_WORD_P):
                 href = WIKI_EN_URL + a.get('href')
 
                 try:

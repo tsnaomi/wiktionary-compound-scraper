@@ -7,11 +7,6 @@
     "en_url": "https://en.wiktionary.org/wiki/Category:Finnish_language",
     "lang_url": "https://fi.wiktionary.org",
 
-    // This specifies the minimum length of an alphabetic sequence that an
-    // extracted word may have. For instance, if `min_word` is set to 3, a
-    // words like 'en' or 'a-b-c' will not get exctracted.
-    "min_word": 3,
-
     // This specifies the first of the target language's alphabet.
     "first_letter": "A", 
 
