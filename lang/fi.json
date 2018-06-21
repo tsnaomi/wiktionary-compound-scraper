@@ -1,5 +1,6 @@
 {
     "language": "Finnish",  // title case
+    "native_language": "Suomi",  // title case
     "code": "fi",  // lowercase
 
     // These Wikitionary URLs are not required by `Extract` but it's nice to
@@ -11,16 +12,21 @@
     "first_letter": "A", 
 
     // "AFFIXES" lists the names of different types of affixes (lowercase) in
-    // English AND  in the target language. This list is used to determine if
-    // a particular string is a word or an affix. Any affix type that is not
-    // listed here will not be considered an affix in `Extract`.
+    // English AND in the target language. This list is used to determine if a
+    // particular string is a word or an affix: Any string whose category is not
+    // an affix is considered a word. Only the categories listed here will be
+    // considered affixes in `Extract`.
     "AFFIXES": [
         "prefix",
-        "prefiksit",    // prefix
+        "prefiksit",        // prefix
         "infix",
-        "infiksit",     // infix
+        "infiksit",         // infix
         "suffix",
-        "suffiksit"     // suffix
+        "suffiksit",        // suffix
+        "particle",
+        "partikkeli",       // particle
+        "clitic",
+        "liitepartikkeli"   // clitic
     ],
 
     // "POS" includes a mapping from part-of-speech categories (lowercase)

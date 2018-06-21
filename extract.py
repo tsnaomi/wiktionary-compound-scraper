@@ -57,12 +57,17 @@ class Extract:
         with open(grammar_fn, 'r+') as f:
             grammar = json.loads(jsmin(f.read()))  # jsmin removes comments
 
+        # the name of the target language in the target language
+        # (e.g., 'Suomi' is 'Finnish' in Finnish)
+        self.native_lang = grammar['native_language']
+
         # this method takes in a part-of-speech category and returns its tag/
         # abbreviation (e.g., 'N' for 'Noun')
         self.get_tag = lambda pos: grammar['POS'][pos.lower()]
 
-        # a list of affixes in both English and the target language
-        self.affixes = grammar['AFFIXES']
+        # this method determines if the given label is an affix (based on a
+        # list of affix types in both English and the target language)
+        self.is_affix = lambda lavel: lavel.lower() in grammar['AFFIXES']
 
         # a regular expression that matches part-of-speech categories
         self.pos_p = re.compile(
@@ -107,7 +112,7 @@ class Extract:
                 except SilentError:  # some errors aren't worth mentioning
                     pass
 
-                except Exception as error:
+                except ExtractionError as error:  # TODO
                     self.print_error(a.text, href, error)
 
         if page.text == 'next page':
@@ -119,7 +124,7 @@ class Extract:
         Lexical information includes part of speech, declensions, and
         compound segmentation(s).
         '''
-        soup = self.get_finnish_soup(url)
+        soup = self.get_finnish_soup(url, self.lang)
         pos = self.get_pos(soup)
         compounds = self.get_compounds(orth, soup)
         declensions = self.get_declensions(soup, orth, pos)
@@ -144,15 +149,15 @@ class Extract:
             for declension in declensions:
                 self.print_annotation(declension, pos)
 
-    def get_finnish_soup(self, url):
-        '''Return parsed HTML about the target language from `url.`
+    def get_finnish_soup(self, url, lang):
+        '''Return parsed HTML about the target language `lang` from `url.`
 
         Since a single Wiktionary page can address the meaning of the same
         word/string across different languages, this method returns the
         BeautifulSoup-parsed HTML section that pertains to the target language.
         '''
         soup = BeautifulSoup(urlopen(url), 'html.parser')
-        section = soup.find('span', class_='mw-headline', id=self.lang)
+        section = soup.find('span', class_='mw-headline', id=lang)
         finnish = ''
 
         for tag in section.parent.next_siblings:
@@ -312,15 +317,17 @@ class Extract:
         '''
         if not a_tag or 'new' in a_tag.get('class', []):
             url = self.wiki + quote(term)
+            lang = self.native_lang
 
         else:
             url = WIKI_EN_URL + a_tag.get('href')
+            lang = self.lang
 
         try:
-            soup = BeautifulSoup(urlopen(url), 'html.parser')
+            soup = self.get_finnish_soup(url, lang)
             headers = soup.find_all('span', class_='mw-headline')
 
-            return all([h.text.lower() not in self.affixes for h in headers])
+            return all(not self.is_affix(h.text) for h in headers)
 
         except (HTTPError, URLError):
             raise ExtractionError("Could not verify '%s'." % term)
