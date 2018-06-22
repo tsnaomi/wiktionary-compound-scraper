@@ -17,10 +17,13 @@
     // an affix is considered a word. Only the categories listed here will be
     // considered affixes in `Extract`.
     "AFFIXES": [
+        "affix",
+        "affiksi",          // affix
         "prefix",
         "prefiksit",        // prefix
         "infix",
         "infiksit",         // infix
+        "interfix",
         "suffix",
         "suffiksit",        // suffix
         "particle",
