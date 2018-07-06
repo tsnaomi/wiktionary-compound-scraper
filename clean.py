@@ -10,9 +10,7 @@ def clean_data(data_fn='data/fi.data'):
     the function.
     '''
     with open(data_fn, 'r+') as f:
-        data = f.readlines()
-
-    data = sorted(list(set([line for line in data if line != '\n'])))
+        data = sorted(list(set(f.readlines())))
 
     with open(data_fn + '.cleaned', 'w+') as f:
         f.write(''.join(data))
