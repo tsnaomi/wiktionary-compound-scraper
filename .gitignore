@@ -3,6 +3,13 @@ __pycache__/
 
 .DS_Store
 
+de.json
+de.data
+de.errors
+nl.json
+nl.data
+nl.errors
+
 *.log
 extract.cmd
 extract.sh
