@@ -9,51 +9,42 @@ from urllib.request import quote, urlopen
 from bs4 import BeautifulSoup
 from jsmin import jsmin
 
-from lang import LANGUAGE_DATA, WIKI_EN_URL, WIKI_LANGUAGES
+from lang import LANGUAGE_DATA, WIKI_EN_URL
 
 
 class Extract:
 
+    # for extracting 'Etymology' section headers
     ETYMOLOGY_P = re.compile(r'^Etymology')
 
-    # extract compound etymologies from nested i/a tags
+    # for extracting compound etymologies from nested i/a tags
     BIG_KAHUNA_P = re.compile(
         r'<i[^>]+>(?:<a[^>]+>)?[\w-]+(?:</a>)?</i>(?:[\w\s]+\+[\w\s]+'
         r'<i[^>]+>(?:<a[^>]+>)?[\w-]+(?:</a>)?</i>)+')
 
+    # for extracting the constituent words in a compound etymology
     WORDS_P = re.compile(r'<i[^>]+>(?:<a[^>]+>)?([\w-]+)(?:</a>)?</i>')
 
-    COMPOUND_SPLIT_P = re.compile(r'(=|\+|-)')
+    # for extracting delimiters
+    DELIMITERS_P = re.compile(r'(=|\+)')
 
-    # require that words have minimally have one alphabetic character
+    # for requiring that words have minimally have one alphabetic character
     # (stricter MIN-WRD requirements can be imposed during post-processing)
     MIN_WORD_P = re.compile(r'\w+')
 
-    HEADERS_P = re.compile(
-        r'^(?!(?:pronunciation|etymology|derived terms|see also|usage notes|'
-        r'synonyms|antonyms|letter|alternative forms|further reading|'
-        r'related terms|references|inflection))^.+', re.I)
+    # for extracting parts of speech in the target language
+    NON_POS_P = re.compile(
+        r'^(?!(?:[\w ]+s\s|declension|etymology|pronunciation|conjugation'
+        r'|see also|inflection|hyponym|hypernym|antonym|synonym'
+        r'|further reading|letter|declination))', re.I)
 
+    # for extracting comparitive and superlative forms
     ADJ_FORMS_P = re.compile(r'(?:comparative|superlative) (\w+)')
 
-    NOUN_FORMS_P = re.compile(r'(?:genitive|plural) (\w+)')
-
-    def __init__(self, lang, grammar_fn=None, debug_li=[], url=None,
-                 find_headers=True):
-        try:
-            # if `lang` is a language code
-            self.code = lang.lower()
-            self.lang = WIKI_LANGUAGES[self.code]
-
-        except KeyError:
-
-            try:
-                # if `lang` is the name of a language
-                self.lang = lang.title()
-                self.code = WIKI_LANGUAGES.inv[self.lang]
-
-            except KeyError:
-                raise ExtractionError('Unsupported language: %s.' % lang)
+    def __init__(self, lang, code, grammar_fn=None):
+        # set the language's name (`self.lang`) and 2-letter code (`self.code`)
+        self.lang = lang
+        self.code = code
 
         # the language's Wiktionary url, e.g., https://fi.wiktionary.org/wiki/
         self.wiki = LANGUAGE_DATA[self.code].get('wiki')
@@ -69,54 +60,29 @@ class Extract:
 
         # the name of the target language in the target language
         # (e.g., 'Suomi' is 'Finnish' in Finnish)
-        self.native_lang = grammar['native_language']
-
-        # this method takes in a part-of-speech category and returns its tag/
-        # abbreviation (e.g., 'N' for 'Noun')
-        self.get_tag = lambda pos: grammar['POS'][pos.lower()]
+        self.native_lang = grammar.pop('native_language')
 
         # a regular expression that matches part-of-speech categories
         self.pos_p = re.compile(
             r'^(%s)' % r'|'.join(grammar['POS'].keys()), re.I)
 
-        # self.auxiliaries = set(grammar.get('AUXILIARIES'))
+        # the default starting url for scraping in `self.walk()`
+        self.start_url = '%s/w/index.php?title=Category:%s_lemmas&from=%s' % (
+            WIKI_EN_URL, self.lang, grammar['first_letter'])
 
-        self.affixes = grammar.get('AFFIXES', [])
-
-        self.interfixes = grammar.get('INTERFIXES', [])
-
-        if self.interfixes:
-            self.format_morpheme = self.format_morpheme_incl_interfixes
-
-        else:
-            self.format_morpheme = self.format_morpheme_excl_interfixes
-
-        # if `debug_li` is given, only the words listed in `debug_wil` will get
-        # extracted...
-        if debug_li:
-            self.debug(debug_li)
-
-        # otherwise, scrape Wiktionary, beginning with `url`...
-        else:
-
-            # if no `url` is provided, begin with the target language's lemmas,
-            # scraping them in alphabetical order
-            if not url:
-                url = WIKI_EN_URL + \
-                    '/w/index.php?title=Category:%s_lemmas&from=%s' % \
-                    (self.lang, grammar['first_letter'])
-
-            if find_headers:
-                self.headers = set()
-                self.find_headers(url=url)
-
-            else:
-                return self.walk(url=url)
+        # for any item in `grammar` whose key is entirely uppercase, store that
+        # item on `self` (e.g., grammar['AFFIXES'] >>> self.affixes)
+        for key in grammar.keys():
+            if key.upper() == key:
+                setattr(self, key.lower(), grammar[key])
 
     # scrape ------------------------------------------------------------------
 
     def walk(self, url):
         '''Walk through Wiktionary, beginning with `url`.'''
+        if not url:
+            url = self.start_url
+
         soup = BeautifulSoup(urlopen(url), 'html.parser')
         page = soup.find_all('a', title='Category:%s lemmas' % self.lang)[-1]
         words = soup.find('div', id='mw-pages') \
@@ -195,28 +161,36 @@ class Extract:
         except AttributeError:
             raise ExtractionError('No soup.')
 
-    def find_headers(self, url):
-        ''' '''
-        soup = BeautifulSoup(urlopen(url), 'html.parser')
-        page = soup.find_all('a', title='Category:%s lemmas' % self.lang)[-1]
-        words = soup.find('div', id='mw-pages') \
-            .find_all('div', class_='mw-category-group')
+    def find_likely_pos(self, url=None):
+        '''Scrape likely part-of-speech categories for the target language.'''
+        try:
+            if not url:
+                self.headers = set()
+                url = self.start_url
 
-        del soup
+            soup = BeautifulSoup(urlopen(url), 'html.parser')
+            page = soup.find_all(
+                'a', title='Category:%s lemmas' % self.lang)[-1]
+            words = soup.find('div', id='mw-pages').find_all(
+                'div', class_='mw-category-group')
 
-        for div in words:
-            for a in div.find_all('a', string=Extract.MIN_WORD_P):
-                href = WIKI_EN_URL + a.get('href')
-                soup = self.get_finnish_soup(href, self.lang)
-                headers = soup.find_all(
-                    'span', class_='mw-headline', string=self.HEADERS_P)
-                self.headers.update(h.text for h in headers)
+            del soup
 
-        if page.text == 'next page':
-            return self.find_headers(WIKI_EN_URL + page.get('href'))
+            for div in words:
+                for a in div.find_all('a', string=Extract.MIN_WORD_P):
+                    href = WIKI_EN_URL + a.get('href')
+                    soup = self.get_finnish_soup(href, self.lang)
+                    headers = soup.find_all(
+                        'span', class_='mw-headline', string=self.NON_POS_P)
+                    self.headers.update(h.text for h in headers)
 
-        else:
-            print('\n'.join(sorted(list(self.headers))))
+            if page.text == 'next page':
+                return self.find_likely_pos(WIKI_EN_URL + page.get('href'))
+
+        except KeyboardInterrupt:
+            print(url)
+
+        print('\n'.join(sorted(list(self.headers))))
 
     def debug(self, debug_li):
         '''Print the annotations for the words listed in `debug_li`.
@@ -263,6 +237,14 @@ class Extract:
             return ' '.join(tags)
 
         raise SilentError('Unwanted POS.')
+
+    def get_tag(self, pos):
+        '''Return the tag for the part of speech `pos`.
+
+        This method takes in a part-of-speech category and returns its tag
+        abbreviation (e.g., 'N' for 'Noun').
+        '''
+        return self.pos[pos.lower()]
 
     # compound segmentation ---------------------------------------------------
 
@@ -346,21 +328,6 @@ class Extract:
                         split[i] = comp
                         affixes += n
 
-                        # # if `comp` is a standalone word, surround the word
-                        # # with equal signs
-                        # if self.is_word(headers):
-                        #     split[i] = '=' + comp.replace('-', '') + '='
-
-                        # # if `comp` is an interfix, surround the interfix with
-                        # # plus signs
-                        # elif self.is_interfix(headers, comp):
-                        #     split[i] = '+' + comp.replace('-', '') + '+'
-                        #     affixes += 1
-
-                        # # if `comp` is an affix, leave in the hyphens
-                        # else:
-                        #     affixes += 1
-
                     except (HTTPError, URLError):
                         errors.append(
                             ExtractionError("Could not verify '%s'." % comp))
@@ -394,7 +361,7 @@ class Extract:
             .replace('==', '=') \
             .replace('=-', '') \
             .replace('-=', '') \
-            .replace('--', '')
+            .replace('--', '').lower()
 
     def verify_compound(self, orth, compound):
         ''' '''
@@ -415,11 +382,7 @@ class Extract:
 
     def baseify(self, text):
         '''Strip `text` of delimiters and make it lowercase.'''
-        return text \
-            .replace('-', '') \
-            .replace(' ', '') \
-            .replace('=', '') \
-            .replace('+', '').lower()
+        return Extract.DELIMITERS_P.sub('', text).lower()
 
     def reconcile(self, compound, orth):
         '''Split `orth` based on the split of `compound`.
@@ -432,13 +395,13 @@ class Extract:
         `aaltomaisuus`, then this method will generate 'aaltomais=uus' as the
         segmentation of `orth`.
         '''
-        split = Extract.COMPOUND_SPLIT_P.split(compound)
+        split = Extract.DELIMITERS_P.split(compound)
         compound = []
         base = orth
 
         for comp in reversed(split):
 
-            if comp == '=' or comp == '+':
+            if comp in '=+-':
                 compound.append(comp)
 
             else:
@@ -461,34 +424,7 @@ class Extract:
 
     # morphology --------------------------------------------------------------
 
-    def format_morpheme_incl_interfixes(self, headers, morph):
-        '''Format the delimiters surrounding `morph` and say if it is affixal.
-
-        This method takes into consideration interfixes.
-
-        This method surrounds interfixes with plus (+) signs, preserves hyphens
-        (-) before/after affixes, and surrounds word stems with equal (=)
-        signs.
-
-        The method returns a 2-tuple, where the first element is the formatted
-        morpheme and the second element is a boolean indicating if the morpheme
-        is affixal. (Interfixes are considered affixes.)
-        '''
-        for label in headers:
-            label = label.text.lower()
-
-            if label == 'interfix':
-                return '+' + morph.replace('-', '') + '+', True
-
-            if label in self.affixes:
-                return morph, 1
-
-        if morph in self.interfixes:
-            return '+' + morph.replace('-', '') + '+', True
-
-        return '=' + morph.replace('-', '') + '=', False
-
-    def format_morpheme_excl_interfixes(self, headers, morph):
+    def format_morpheme(self, headers, morph):
         '''Format the delimiters surrounding `morph` and say if it is affixal.
 
         This method does NOT take into consideration interfixes.
@@ -522,7 +458,7 @@ class Extract:
                 declensions = table.find_all('span', class_='Latn')
                 declensions = list([d.text for d in declensions])
 
-                # strip any modifiers
+                # strip any modifiers or auxiliaries
                 n = orth.count(' ')
                 declensions = [
                     d.split(' ', d.count(' ') - n)[-1] for d in declensions]
@@ -532,19 +468,8 @@ class Extract:
             except AttributeError:
                 pass
 
-        # for nouns, include genitive and plural forms in the absence of a
-        # declension table
-        if not DECLENSIONS and 'N' in pos:
-            DECLENSIONS.extend(Extract.NOUN_FORMS_P.findall(soup.text))
-
         DECLENSIONS = list(set(DECLENSIONS))
 
-        # # remove any auxiliary verbs
-        # if 'V' in pos and orth not in self.auxiliaries:
-        #     DECLENSIONS = [d for d in DECLENSIONS if d not in self.auxiliaries]
-
-        # remove the default orthography (most likely, the nominative singular
-        # form), so that it prints first in self.extract() without duplication
         try:
             DECLENSIONS.remove(orth)
 
@@ -581,24 +506,3 @@ class ExtractionError(Exception):
 
 class SilentError(ExtractionError):
     pass
-
-
-if __name__ == '__main__':
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-l', '--lang', default='Finnish')
-    parser.add_argument('-g', '--grammar_fn', default=None)
-    parser.add_argument('-d', '--debug_li', nargs='*', default=[])
-    parser.add_argument('-D', '--debug_fn', default='')
-    parser.add_argument('-u', '--url', default=None)
-    parser.add_argument('-H', '--find_headers', action='store_true')
-    args = parser.parse_args()
-
-    Extract(
-        lang=args.lang,
-        grammar_fn=args.grammar_fn,
-        debug_li=args.debug_fn if args.debug_fn else args.debug_li,
-        url=args.url,
-        find_headers=args.find_headers
-        )
