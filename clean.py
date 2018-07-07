@@ -1,7 +1,8 @@
+import argparse
 import re
 
 
-def clean_data(data_fn='data/fi.data'):
+def clean_data(data_fn):
     '''Clean the data in `data_fn` and write it to a '.cleaned' file.
 
     This function removes all blank lines and duplicate lines of data. It then
@@ -12,11 +13,46 @@ def clean_data(data_fn='data/fi.data'):
     with open(data_fn, 'r+') as f:
         data = sorted(list(set(f.readlines())))
 
+    data.remove('\n')
+
+    # ---- start revisions ----
+    # propose alternative splits in the cases where compounds underwent further
+    # compounding
+
+    splits = {}
+
+    for i, line in enumerate(data):
+        if line.count(' ; ') > 1:
+            line = line[:-1]
+            orth, _, split = line.split(' ; ')
+
+            # this is a simplifying assumption: it assumes there are no
+            # alternative splits for each `orth`
+            splits[orth] = (i, line, split)
+
+    for _, (i, line, segmentation) in splits.items():
+        split = segmentation.split('=')
+        altered = False
+
+        for j, word in enumerate(split):
+            try:
+                _, _, further_split = splits[word]
+                split[j] = further_split
+                altered = True
+
+            except KeyError:
+                continue
+
+        if altered:
+            data[i] = line + ' ; ' + '='.join(split) + '\n'
+
+    # ---- end revisions ----
+
     with open(data_fn + '.cleaned', 'w+') as f:
         f.write(''.join(data))
 
 
-def clean_errors(errors_fn='data/fi.errors'):
+def clean_errors(errors_fn):
     '''Clean the errors in `errors_fn` and write them to a '.cleaned' file.
 
     This function groups the errors in `errors_fn` by error type/message. It
@@ -76,9 +112,7 @@ def clean_errors(errors_fn='data/fi.errors'):
         f.write(''.join(errors))
 
 
-if __name__ == '__main__':
-    import argparse
-
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--data_fn')
     parser.add_argument('-e', '--errors_fn')
@@ -89,3 +123,7 @@ if __name__ == '__main__':
 
     if args.errors_fn:
         clean_errors(args.errors_fn)
+
+
+if __name__ == '__main__':
+    main()
