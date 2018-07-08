@@ -26,7 +26,7 @@ class Extract:
     WORDS_P = re.compile(r'<i[^>]+>(?:<a[^>]+>)?([\w-]+)(?:</a>)?</i>')
 
     # for extracting delimiters
-    DELIMITERS_P = re.compile(r'(=|\+)')
+    DELIMITERS_P = re.compile(r'(=|\+|-)')
 
     # for requiring that words have minimally have one alphabetic character
     # (stricter MIN-WRD requirements can be imposed during post-processing)
@@ -125,7 +125,7 @@ class Extract:
                 for _orth, _compound in self.split_declensions(
                         declensions, compound, orth):
 
-                    if _orth.basify() == _compound.basify():
+                    if self.basify(_orth) == self.basify(_compound):
                         self.print_annotation(_orth, pos, _compound)
 
                     else:
