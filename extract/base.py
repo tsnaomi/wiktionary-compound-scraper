@@ -124,8 +124,13 @@ class Extract:
 
                 for _orth, _compound in self.split_declensions(
                         declensions, compound, orth):
+
                     if _orth.basify() == _compound.basify():
                         self.print_annotation(_orth, pos, _compound)
+
+                    else:
+                        self.print_error(orth, url, ExtractionError(
+                            'Declension %s != %s' % (_orth, _compound)))
 
         elif compounds:
             for compound in compounds:
