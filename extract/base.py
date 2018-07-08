@@ -34,9 +34,9 @@ class Extract:
 
     # for extracting parts of speech in the target language
     NON_POS_P = re.compile(
-        r'^(?!(?:[\w ]+s\s|declension|etymology|pronunciation|conjugation'
-        r'|see also|inflection|hyponym|hypernym|antonym|synonym'
-        r'|further reading|letter|declination))', re.I)
+        r'^(?!(?:Decl|Etymo|Pronunci|Conjugat|[\w ]+s(?: \d)?$|See also'
+        r'|Inflection|Hyponym|Hypernym|Antonym|Synonym|Reference|Further'
+        r'|Alternative|Usage|Note|Compound.+|Holonym|Meronym)).')
 
     # for extracting comparitive and superlative forms
     ADJ_FORMS_P = re.compile(r'(?:comparative|superlative) (\w+)')
