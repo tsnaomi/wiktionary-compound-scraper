@@ -63,8 +63,7 @@ class Extract:
         self.native_lang = grammar.pop('native_language')
 
         # a regular expression that matches part-of-speech categories
-        self.pos_p = re.compile(
-            r'^(%s)' % r'|'.join(grammar['POS'].keys()), re.I)
+        self.pos_p = re.compile(r'^(%s)' % r'|'.join(grammar['POS'].keys()))
 
         # the default starting url for scraping in `self.walk()`
         self.start_url = '%s/w/index.php?title=Category:%s_lemmas&from=%s' % (
@@ -227,7 +226,7 @@ class Extract:
             tags = []
 
             for p in pos:
-                tag = self.get_tag(p.text)
+                tag = self.pos[p.text]
 
                 # in lieu of calling `set()`, this preserves the order of the
                 # tags listed in `soup`
@@ -237,14 +236,6 @@ class Extract:
             return ' '.join(tags)
 
         raise SilentError('Unwanted POS.')
-
-    def get_tag(self, pos):
-        '''Return the tag for the part of speech `pos`.
-
-        This method takes in a part-of-speech category and returns its tag
-        abbreviation (e.g., 'N' for 'Noun').
-        '''
-        return self.pos[pos.lower()]
 
     # compound segmentation ---------------------------------------------------
 
@@ -438,7 +429,7 @@ class Extract:
         '''
         for label in headers:
 
-            if label.text.lower() in self.affixes:
+            if label.text in self.affixes:
                 return morph, True
 
         return '=' + morph.replace('-', '') + '=', False

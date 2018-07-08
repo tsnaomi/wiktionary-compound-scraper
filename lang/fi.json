@@ -61,4 +61,35 @@
         // "acronym"
         // "initialism"
     }
+
+    // ALL PARTS OF SPEECH (obtained from `Extract.get_likely_pos()`):
+    // Abbreviation
+    // Acronym
+    // Adjective
+    // Adverb
+    // Compound             ?
+    // Conjunction
+    // Idiom
+    // Initialism
+    // Interjection
+    // Letter
+    // Noun
+    // Number
+    // Numeral
+    // Ordinal number
+    // Participle
+    // Particle
+    // Phrase
+    // Postposition
+    // Prefix
+    // Preposition
+    // Pronoun
+    // Proper noun
+    // Proverb
+    // Punctuation mark
+    // Root
+    // Suffix
+    // Symbol
+    // Verb
+
 }
