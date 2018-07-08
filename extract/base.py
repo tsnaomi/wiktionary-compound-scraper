@@ -124,7 +124,8 @@ class Extract:
 
                 for _orth, _compound in self.split_declensions(
                         declensions, compound, orth):
-                    self.print_annotation(_orth, pos, _compound)
+                    if _orth.basify() == _compound.basify():
+                        self.print_annotation(_orth, pos, _compound)
 
         elif compounds:
             for compound in compounds:
@@ -360,25 +361,25 @@ class Extract:
         if '=' not in compound and '+' not in compound:
             raise SilentError('False alarm. Not a compound.')
 
-        goal = self.baseify(orth)
+        goal = self.basify(orth)
 
-        if self.baseify(compound) != goal:
+        if self.basify(compound) != goal:
             compound = self.reconcile(compound, goal)
 
             # TODO: confirm that this step is (un)necessary
-            if self.baseify(compound) != goal:
+            if self.basify(compound) != goal:
                 raise ExtractionError('Unreconcilable compound structure.')
 
         return compound
 
-    def baseify(self, text):
+    def basify(self, text):
         '''Strip `text` of delimiters and make it lowercase.'''
         return Extract.DELIMITERS_P.sub('', text).lower()
 
     def reconcile(self, compound, orth):
         '''Split `orth` based on the split of `compound`.
 
-        This method is invoked when the orthography or "baseified" form of
+        This method is invoked when the orthography or "basified" form of
         `compound` does not match the orthography of `orth`. This method
         attempts to reconcile their differences to split `orth` appropriately.
 
