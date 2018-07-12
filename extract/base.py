@@ -1,8 +1,7 @@
 import json
 import re
 
-from os.path import commonprefix
-from sys import stderr
+from sys import stderr, stdout
 from urllib.error import HTTPError, URLError
 from urllib.request import quote, urlopen
 
@@ -26,11 +25,12 @@ class Extract:
     WORDS_P = re.compile(r'<i[^>]+>(?:<a[^>]+>)?([\w-]+)(?:</a>)?</i>')
 
     # for extracting delimiters
-    DELIMITERS_P = re.compile(r'(=|\+|-)')
+    DELIMITERS_P = re.compile(r'([=+\- ]+)')
 
     # for requiring that words have minimally have one alphabetic character
-    # (stricter MIN-WRD requirements can be imposed during post-processing)
-    MIN_WORD_P = re.compile(r'\w+')
+    # and do not begin with a hyphen (stricter MIN-WRD requirements can be
+    # imposed during post-processing)
+    MIN_WORD_P = re.compile(r'^(?!-).*\w+')
 
     # for extracting parts of speech in the target language
     NON_POS_P = re.compile(
@@ -39,7 +39,7 @@ class Extract:
         r'|Alternative|Usage|Note|Compound.+|Holonym|Meronym)).')
 
     # for extracting comparitive and superlative forms
-    ADJ_FORMS_P = re.compile(r'(?:comparative|superlative) (\w+)')
+    ADJ_FORMS_P = re.compile(r'(?:comparative|superlative) ([^,)]+)')
 
     def __init__(self, lang, code, grammar_fn=None):
         # set the language's name (`self.lang`) and 2-letter code (`self.code`)
@@ -118,26 +118,30 @@ class Extract:
 
         del soup
 
-        if compounds and declensions:
-            for compound in compounds:
-                self.print_annotation(orth, pos, compound)
+        for compound in compounds:
+            # use an asterisk to indicate that the word is in its
+            # Wiktionary dictionary for,
+            self.print_annotation(orth + '*', pos, compound)
 
-                for _orth, _compound in self.split_declensions(
-                        declensions, compound, orth):
+            if '=' not in compound and '+' not in compound:
+                # if `compound` is not a closed compound, then `orth` is
+                # already a properly segmented (open) compound
+                for _orth in declensions:
+                    self.print_annotation(_orth, pos, _orth)
 
-                    if self.basify(_orth) == self.basify(_compound):
+            else:
+                for _orth in declensions:
+
+                    try:
+                        _compound = self.split_declension(_orth, compound)
                         self.print_annotation(_orth, pos, _compound)
 
-                    else:
-                        self.print_error(orth, url, ExtractionError(
-                            'Declension %s != %s' % (_orth, _compound)))
+                    except Exception as error:
+                        self.print_error(orth, url, error)
+                        continue
 
-        elif compounds:
-            for compound in compounds:
-                self.print_annotation(orth, pos, compound)
-
-        else:
-            self.print_annotation(orth, pos)
+        if not compounds:
+            self.print_annotation(orth + '*', pos)
 
             for declension in declensions:
                 self.print_annotation(declension, pos)
@@ -164,7 +168,7 @@ class Extract:
             return BeautifulSoup(finnish, 'html.parser')
 
         except AttributeError:
-            raise ExtractionError('No soup.')
+            raise SilentError('No soup.')
 
     def find_likely_pos(self, url=None):
         '''Scrape likely part-of-speech categories for the target language.'''
@@ -340,7 +344,7 @@ class Extract:
             compound = self.format_compound(''.join(split))
 
         else:
-            compound = '='.join(split)
+            compound = '='.join(split).lower()
 
         return self.verify_compound(orth, compound)
 
@@ -361,9 +365,9 @@ class Extract:
             .replace('--', '').lower()
 
     def verify_compound(self, orth, compound):
-        ''' '''
+        '''Ensure that `compound` is a fair segmentation of `orth.`'''
         # toss simplex words
-        if '=' not in compound and '+' not in compound:
+        if not any(i for i in ('=', '-', '+', ' ') if i in compound):
             raise SilentError('False alarm. Not a compound.')
 
         goal = self.basify(orth)
@@ -371,9 +375,14 @@ class Extract:
         if self.basify(compound) != goal:
             compound = self.reconcile(compound, goal)
 
-            # TODO: confirm that this step is (un)necessary
             if self.basify(compound) != goal:
                 raise ExtractionError('Unreconcilable compound structure.')
+
+        if ' ' in orth or '-' in orth:
+            compound = self.preserve_delimiters(compound, orth)
+
+            if self.basify(compound) != goal:
+                raise ExtractionError('Delimiters broke the compound.')
 
         return compound
 
@@ -381,7 +390,7 @@ class Extract:
         '''Strip `text` of delimiters and make it lowercase.'''
         return Extract.DELIMITERS_P.sub('', text).lower()
 
-    def reconcile(self, compound, orth):
+    def reconcile(self, compound, orth, declension=False):
         '''Split `orth` based on the split of `compound`.
 
         This method is invoked when the orthography or "basified" form of
@@ -392,21 +401,20 @@ class Extract:
         `aaltomaisuus`, then this method will generate 'aaltomais=uus' as the
         segmentation of `orth`.
         '''
-        split = Extract.DELIMITERS_P.split(compound)
-        compound = []
+        split = []
         base = orth
 
-        for comp in reversed(split):
+        for comp in reversed(Extract.DELIMITERS_P.split(compound)):
 
-            if comp in '=+-':
-                compound.append(comp)
+            if comp in '=+- ':
+                split.append(comp)
 
             else:
                 while comp:
                     try:
                         index = base.rindex(comp)
                         base, comp = base[:index], base[index:]
-                        compound.append(comp)
+                        split.append(comp)
                         break
 
                     except ValueError:
@@ -414,10 +422,18 @@ class Extract:
 
                 else:
                     raise ExtractionError(
-                        "Could not reconcile '%s' and '%s'." %
-                        (orth, ''.join(split)))
+                        "Could not reconcile %s'%s' and '%s'." %
+                        ('declension ' if declension else '', orth, compound))
 
-        return ''.join(compound[::-1])
+        return ''.join(split[::-1])
+
+    def preserve_delimiters(self, compound, orth):
+        '''Preserve the delimiters found in `orth` in `compound`.'''
+        for d in Extract.DELIMITERS_P.finditer(orth):
+            i = d.start()
+            compound = compound[:i] + d.group() + compound[i + 1:]
+
+        return compound
 
     # morphology --------------------------------------------------------------
 
@@ -444,57 +460,62 @@ class Extract:
 
     def get_declensions(self, soup, orth, pos):
         '''Extract the various conjugations of `orth` from `soup`.'''
-        DECLENSIONS = []
+        declensions = set()
+
+        simplex = ' ' not in orth
+        word = orth.rsplit(' ', 1)[-1]
+        n = orth.count(' ')
 
         # for adjectives, include comparative and superlative forms
         if 'ADJ' in pos:
-            DECLENSIONS.extend(Extract.ADJ_FORMS_P.findall(soup.text))
+            declensions.update(Extract.ADJ_FORMS_P.findall(soup.text))
 
         for table in soup.find_all('table', class_='inflection-table'):
             try:
-                declensions = table.find_all('span', class_='Latn')
-                declensions = list([d.text for d in declensions])
+                for d in table.find_all('span', class_='Latn'):
+                    d = d.text
 
-                # strip any modifiers or auxiliaries
-                n = orth.count(' ')
-                declensions = [
-                    d.split(' ', d.count(' ') - n)[-1] for d in declensions]
-
-                DECLENSIONS.extend(declensions)
+                    # trim auxiliaries, modifiers, etc., and ignore declensions
+                    # that do not fully inflect `orth` (e.g., 'olen ajanut' is
+                    # not a complete 1.sg. conjugation of the compound
+                    # 'ajaa partansa', since 'partansa' is missing)
+                    if word in d or simplex:
+                        declensions.add(d.split(' ', d.count(' ') - n)[-1])
 
             except AttributeError:
                 pass
 
-        DECLENSIONS = list(set(DECLENSIONS))
-
         try:
-            DECLENSIONS.remove(orth)
+            declensions.remove(orth)
 
-        except ValueError:
+        except KeyError:
             pass
 
-        return DECLENSIONS
+        return list(declensions)
 
-    def split_declensions(self, declensions, compound, orth):
-        '''Delimit the word boundaries in each declension with '='.'''
-        prefix = commonprefix([orth, ] + declensions)
-        i, j = len(prefix), len(orth)
-        prefix = compound[:-(j - i)] if j > i else compound
+    def split_declension(self, orth, compound):
+        '''Delimit the word boundaries in `orth` according to `compound`.'''
+        goal = self.basify(orth)
+        compound = self.reconcile(compound, goal, declension=True)
+        compound = self.preserve_delimiters(compound, orth)
+        # compound = orth.replace(compound.replace('=', ''), compound)
 
-        for _orth in declensions:
-            yield _orth, prefix + _orth[i:]
+        if goal != self.basify(compound):
+            raise ExtractionError(
+                "Declension '%s' != '%s'." % (orth, compound))
+
+        return compound
 
     # print -------------------------------------------------------------------
 
     def print_error(self, orth, url, error):
         '''Print an informative error message for `orth`.'''
-        print(
-            '%s (%s) %s: %s' % (orth, url, type(error).__name__, str(error)),
-            file=stderr)
+        stderr.buffer.write(('%s (%s) %s: %s\n' % (
+            orth, url, type(error).__name__, str(error))).encode('utf-8'))
 
     def print_annotation(self, *annotation):
         '''Format and print `annotation`.'''
-        print(' ; '.join(annotation))
+        stdout.buffer.write((' ; '.join(annotation) + '\n').encode('utf-8'))
 
 
 class ExtractionError(Exception):

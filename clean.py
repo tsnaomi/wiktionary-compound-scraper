@@ -13,8 +13,6 @@ def clean_data(data_fn):
     with open(data_fn, 'r+') as f:
         data = sorted(list(set(f.readlines())))
 
-    data.remove('\n')
-
     # ---- start revisions ----
     # propose alternative splits in the cases where compounds underwent further
     # compounding
@@ -86,10 +84,10 @@ def clean_errors(errors_fn):
     # sort `extraction` errors by error message, then by `orth`
     extraction.sort(key=lambda x: (x[2], x[0].lower()))
 
-    # separate groups of errors with a newline
     errors = ''
     prev = uncaught[0][1]
 
+    # separate groups of errors with a newline
     for error in uncaught:
         error_type = error[1]
 
@@ -100,9 +98,9 @@ def clean_errors(errors_fn):
         prev = error_type
 
     for error in extraction:
-        msg = error[2]
+        msg = specifics.sub('', error[2])
 
-        if specifics.sub('', prev) != specifics.sub('', msg):
+        if prev != msg:
             errors += '\n'
 
         errors += ''.join(error)

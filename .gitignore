@@ -1,6 +1,9 @@
 *.pyc
 __pycache__/
 
+test.py
+tests/
+
 .DS_Store
 
 fi.pos
@@ -12,5 +15,7 @@ nl.*
 extract.cmd
 extract.sh
 word_li
+word_li.*
+notes
 pull.sh
 push.sh

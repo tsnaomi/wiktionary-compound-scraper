@@ -18,10 +18,11 @@ def main():
     lang, code = get_lang_and_code(args.lang)
     Extract = getattr(extract, code, extract).Extract
     E = Extract(lang=lang, code=code, grammar_fn=args.grammar_fn)
+    debug_li = args.debug_fn if args.debug_fn else args.debug_li
 
     # if `debug_li` is given, only extract the words listed in `debug_li`...
-    if args.debug_li:
-        E.debug(debug_li=args.debug_fn if args.debug_fn else args.debug_li)
+    if debug_li:
+        E.debug(debug_li=debug_li)
 
     # if `find_likely_pos` is given, only extract potential parts of speech...
     elif args.find_likely_pos:
