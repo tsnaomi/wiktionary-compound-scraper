@@ -26,11 +26,14 @@ class Extract:
 
     # for extracting delimiters
     DELIMITERS_P = re.compile(r'([=+\- ]+)')
+    OPEN_DELIM_P = re.compile(r'([\- ]+)')
+    CLOSED_DELIM_P = re.compile(r'([=+]+)')
+    CHAR_DELIM_P = re.compile(r'[^=+\- ][=+\- ]*')
 
-    # for requiring that words have minimally have one alphabetic character
-    # and do not begin with a hyphen (stricter MIN-WRD requirements can be
-    # imposed during post-processing)
-    MIN_WORD_P = re.compile(r'^(?!-).*\w+')
+    # for requiring that words minimally have and begin with one alphabetic
+    # character (stricter MIN-WRD requirements can be imposed during
+    # post-processing)
+    MIN_WORD_P = re.compile(r'^\w')
 
     # for extracting parts of speech in the target language
     NON_POS_P = re.compile(
@@ -40,6 +43,9 @@ class Extract:
 
     # for extracting comparitive and superlative forms
     ADJ_FORMS_P = re.compile(r'(?:comparative|superlative) ([^,)]+)')
+
+    # for extracting bad reconciliations
+    TOO_SHORT_P = re.compile(r'(?:=|\+)\w{1,2}(?:$|=|\+)')
 
     def __init__(self, lang, code, grammar_fn=None):
         # set the language's name (`self.lang`) and 2-letter code (`self.code`)
@@ -127,7 +133,7 @@ class Extract:
                 # if `compound` is not a closed compound, then `orth` is
                 # already a properly segmented (open) compound
                 for _orth in declensions:
-                    self.print_annotation(_orth, pos, _orth)
+                    self.print_annotation(_orth, pos, _orth.lower())
 
             else:
                 for _orth in declensions:
@@ -259,7 +265,7 @@ class Extract:
             raise SilentError('No etymology. Boo.')
 
         compounds = []
-        errors = []
+        error = None
 
         for etym in etymologies:
             etym = etym.find_parent(['h3', 'h4']).find_next_sibling(['p'])
@@ -280,13 +286,18 @@ class Extract:
                 except SilentError:
                     continue
 
-                except ExtractionError as error:
-                    errors.append(error)
+                except ExtractionError as err:
+                    error = error or err  # keep the first error
 
         # raise the first encountered error if no compound structures were
         # successfully derived
-        if errors and not compounds:
-            raise errors[0]
+        if error and not compounds:
+            raise error
+
+        # if `orth` is an open compound but no compound structures were
+        # successfully derived, include `orth` as a compound structure
+        if not compounds and (' ' in orth or '-' in orth):
+            compounds.append(orth.lower())
 
         # return any successfully derived compound structures or an empty list
         # in the event of zero errors and no compounds
@@ -346,6 +357,9 @@ class Extract:
         else:
             compound = '='.join(split).lower()
 
+        # temporarily represent all delimiters as '='
+        compound = Extract.OPEN_DELIM_P.sub('=', compound)
+
         return self.verify_compound(orth, compound)
 
     def format_compound(self, compound):
@@ -367,7 +381,7 @@ class Extract:
     def verify_compound(self, orth, compound):
         '''Ensure that `compound` is a fair segmentation of `orth.`'''
         # toss simplex words
-        if not any(i for i in ('=', '-', '+', ' ') if i in compound):
+        if '=' not in compound:
             raise SilentError('False alarm. Not a compound.')
 
         goal = self.basify(orth)
@@ -381,8 +395,9 @@ class Extract:
         if ' ' in orth or '-' in orth:
             compound = self.preserve_delimiters(compound, orth)
 
+            # TODO: confirm this isn't necessary
             if self.basify(compound) != goal:
-                raise ExtractionError('Delimiters broke the compound.')
+                raise ExtractionError('Preserving delimiters broke things (1).')
 
         return compound
 
@@ -401,19 +416,29 @@ class Extract:
         `aaltomaisuus`, then this method will generate 'aaltomais=uus' as the
         segmentation of `orth`.
         '''
+        i = max(compound.rfind('='), compound.rfind('+'), 0)
+
+        if i:
+            i += 1 if declension else 4
+            prefix = compound[:i]
+            basified_prefix = self.basify(prefix)
+
+            if basified_prefix in orth:
+                return orth.replace(basified_prefix, prefix)
+
         split = []
         base = orth
 
-        for comp in reversed(Extract.DELIMITERS_P.split(compound)):
+        for comp in reversed(Extract.CLOSED_DELIM_P.split(compound)):
 
-            if comp in '=+- ':
+            if comp in '=+':
                 split.append(comp)
 
             else:
-                while comp:
+                while len(comp):
                     try:
-                        index = base.rindex(comp)
-                        base, comp = base[:index], base[index:]
+                        i = base.rindex(comp)
+                        base, comp = base[:i], base[i:]
                         split.append(comp)
                         break
 
@@ -425,13 +450,24 @@ class Extract:
                         "Could not reconcile %s'%s' and '%s'." %
                         ('declension ' if declension else '', orth, compound))
 
-        return ''.join(split[::-1])
+        split = ''.join(split[::-1])
+
+        # TODO: confirm this isn't necessary
+        if Extract.TOO_SHORT_P.search(split):
+            raise ExtractionError(
+                "Could not safely reconcile %s'%s' and '%s': '%s'." %
+                ('declension ' if declension else '', orth, compound, split))
+
+        return split
 
     def preserve_delimiters(self, compound, orth):
         '''Preserve the delimiters found in `orth` in `compound`.'''
-        for d in Extract.DELIMITERS_P.finditer(orth):
-            i = d.start()
-            compound = compound[:i] + d.group() + compound[i + 1:]
+        orth_split = Extract.CHAR_DELIM_P.findall(orth)
+        compound_split = Extract.CHAR_DELIM_P.findall(compound)
+        compound = ''
+
+        for o, c in zip(orth_split, compound_split):
+            compound += c if len(c) > len(o) else o
 
         return compound
 
@@ -497,12 +533,17 @@ class Extract:
         '''Delimit the word boundaries in `orth` according to `compound`.'''
         goal = self.basify(orth)
         compound = self.reconcile(compound, goal, declension=True)
-        compound = self.preserve_delimiters(compound, orth)
-        # compound = orth.replace(compound.replace('=', ''), compound)
 
         if goal != self.basify(compound):
             raise ExtractionError(
                 "Declension '%s' != '%s'." % (orth, compound))
+
+        if ' ' in orth or '-' in orth:
+            compound = self.preserve_delimiters(compound, orth)
+
+            # TODO: confirm this isn't necessary
+            if self.basify(compound) != goal:
+                raise ExtractionError('Preserving delimiters broke things (2).')
 
         return compound
 
