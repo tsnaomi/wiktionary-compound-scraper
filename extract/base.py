@@ -2,7 +2,7 @@ import json
 import re
 
 from datetime import datetime
-from pytz import timezone
+from pytz import timezone, utc
 from sys import stderr, stdout
 from urllib.error import HTTPError, URLError
 from urllib.request import quote, urlopen
@@ -92,7 +92,7 @@ class Extract:
             url = self.start_url
 
             # print timestamp (e.g., '# Fri Jul 13 00:29:57 PDT 2018')
-            timestamp = datetime.utcnow().astimezone(timezone('US/Pacific'))
+            timestamp = datetime.now(tz=utc).astimezone(timezone('US/Pacific'))
             timestamp = timestamp.strftime('%a %b %d %H:%M:%S %Z %Y\n')
             self.print_annotation(timestamp)
 
