@@ -29,7 +29,13 @@
         "Particle",
         "Partikkeli",       // particle
         "Clitic",
-        "Liitepartikkeli"   // clitic
+        "Liitepartikkeli",  // clitic
+
+        // The following are not affixes but should not be treated as words,
+        // so they are included here.
+        "Letter",
+        "Root",
+        "Symbol"
     ],
 
     // "POS" includes a mapping from part-of-speech categories (sentence case)

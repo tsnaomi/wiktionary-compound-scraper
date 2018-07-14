@@ -1,5 +1,6 @@
-import argparse
 import re
+
+from argparse import ArgumentParser
 
 
 def clean_data(data_fn):
@@ -11,7 +12,11 @@ def clean_data(data_fn):
     the function.
     '''
     with open(data_fn, 'r+') as f:
-        data = sorted(list(set(f.readlines())))
+        data = f.readlines()
+        timestamp, data = data[0], sorted(list(set(data[1:])))
+
+    if data[0] == '\n':
+        data = data[1:]
 
     # ---- start revisions ----
     # propose alternative splits in the cases where compounds underwent further
@@ -47,7 +52,7 @@ def clean_data(data_fn):
     # ---- end revisions ----
 
     with open(data_fn + '.cleaned', 'w+') as f:
-        f.write(''.join(data))
+        f.write(timestamp + ''.join(data))
 
 
 def clean_errors(errors_fn):
@@ -85,17 +90,22 @@ def clean_errors(errors_fn):
     extraction.sort(key=lambda x: (x[2], x[0].lower()))
 
     errors = ''
-    prev = uncaught[0][1]
 
-    # separate groups of errors with a newline
-    for error in uncaught:
-        error_type = error[1]
+    try:
+        prev = uncaught[0][1]
 
-        if prev != error_type:
-            errors += '\n'
+        for error in uncaught:
+            error_type = error[1]
 
-        errors += ''.join(error)
-        prev = error_type
+            # separate groups of errors with a newline
+            if prev != error_type:
+                errors += '\n'
+
+            errors += ''.join(error)
+            prev = error_type
+
+    except IndexError:
+        prev = None
 
     for error in extraction:
         msg = specifics.sub('', error[2])
@@ -106,12 +116,15 @@ def clean_errors(errors_fn):
         errors += ''.join(error)
         prev = msg
 
+    if errors.startswith('\n'):
+        errors = errors[1:]
+
     with open(errors_fn + '.cleaned', 'w+') as f:
         f.write(''.join(errors))
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = ArgumentParser()
     parser.add_argument('-d', '--data_fn')
     parser.add_argument('-e', '--errors_fn')
     args = parser.parse_args()
