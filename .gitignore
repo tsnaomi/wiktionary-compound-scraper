@@ -6,7 +6,7 @@ tests/
 
 .DS_Store
 
-fi.pos
+data/fi.*
 
 de.*
 nl.*
