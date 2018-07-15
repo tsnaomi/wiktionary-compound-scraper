@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import json
 import re
 
@@ -48,7 +50,7 @@ class Extract:
         r'(?:, (?:compar|superl)ative ([\w\d\-\' ]+))?\)')
 
     # for extracting bad reconciliations
-    TOO_SHORT_P = re.compile(r'(?:=|\+)\w{1,2}(?:$|=|\+)')
+    TOO_SHORT_P = re.compile(r'(?:^|=|\+)\w{1,2}(?:$|=|\+)')
 
     def __init__(self, lang, code, grammar_fn=None):
         # set the language's name (`self.lang`) and 2-letter code (`self.code`)
@@ -84,6 +86,15 @@ class Extract:
             if key.upper() == key:
                 setattr(self, key.lower(), grammar[key])
 
+        # set printer methods...
+        if stdout.encoding == 'UTF-8':
+            self.print_error = self._print_error
+            self.print_annotation = self._print_annotation
+
+        else:
+            self.print_error = self._buffer_error
+            self.print_annotation = self._buffer_annotation
+
     # scrape ------------------------------------------------------------------
 
     def walk(self, url):
@@ -110,7 +121,8 @@ class Extract:
                 try:
                     self.extract(a.text,  href)
 
-                except SilentError:  # some errors aren't worth mentioning
+                # some errors aren't worth mentioning
+                except (HiccupError, SilentError):
                     pass
 
                 except Exception as error:
@@ -182,7 +194,7 @@ class Extract:
             return BeautifulSoup(finnish, 'html.parser')
 
         except AttributeError:
-            raise ExtractionError('No soup.')
+            raise HiccupError('No soup.')
 
     def find_likely_pos(self, url=None):
         '''Scrape likely part-of-speech categories for the target language.'''
@@ -263,19 +275,29 @@ class Extract:
 
     # compound segmentation ---------------------------------------------------
 
-    def get_compounds(self, orth, soup):  # noqa
-        '''Identify the various compound segmentations for `orth` (if any).'''
-        etymologies = soup.find_all(
+    def parse_etymologies(self, orth, soup):
+        '''Extract and parse the etymolgoies of `orth` provided in `soup.`
+
+        This methods yields lists of tuples, where each list represents an
+        etymology given for `orth`. Each tuple therein includes a constituent
+        word or affix of `orth`, a (potential) link to that consituent's page
+        on Wiktionary, as well as the language of that Wiktionary page.
+
+        # e.g., if `orth` is 'aakkoshakemisto', then this method will yield
+        something akin to the following:
+            [
+                ('aakkos-', 'en.wiktionary.org/wiki/aakkoset', 'Finnish'),
+                ('hakemisto', 'en.wiktionary.org/wiki/hakemist', 'Finnish')
+            ]
+        '''
+        etymology_soup = soup.find_all(
             class_='mw-headline', string=Extract.ETYMOLOGY_P)
 
         # without any etymology, can't confirm if `orth` is simplex or complex
-        if not etymologies:
+        if not etymology_soup:
             raise SilentError('No etymology. Boo.')
 
-        compounds = []
-        error = None
-
-        for etym in etymologies:
+        for etym in etymology_soup:
             etym = etym.find_parent(['h3', 'h4']).find_next_sibling(['p'])
 
             try:
@@ -285,100 +307,98 @@ class Extract:
             except AttributeError:
                 continue
 
-            for split in Extract.BIG_KAHUNA_P.findall(
-                    str(etym).replace('\u200e', '')):
+            etym_html = str(etym).replace('\u200e', '')
 
-                try:
-                    compounds.append(self.get_compound(orth, split, etym))
+            for split in Extract.BIG_KAHUNA_P.findall(etym_html):
+                split = Extract.WORDS_P.findall(split)
 
-                except SilentError:  # from self.verify_compound()
-                    continue
+                for i, comp in enumerate(split):
+                    a_tag = etym.find('a', string=comp)
 
-                except ExtractionError as err:
-                    error = error or err  # keep the first error
+                    if not a_tag or 'new' in a_tag.get('class', []):
+                        url = self.wiki + quote(comp)
+                        lang = self.native_lang
 
-        # raise the first encountered error if no compound structures were
-        # successfully derived
-        if error and not compounds:
-            raise error
+                    else:
+                        url = WIKI_EN_URL + a_tag.get('href')
+                        lang = self.lang
 
-        # if `orth` is an open compound but no compound structures were
-        # successfully derived, include `orth` as a compound structure
-        if not compounds and (' ' in orth or '-' in orth):
-            compounds.append(orth.lower())
+                    split[i] = (comp, url, lang)
+
+                yield split
+
+    def get_compounds(self, orth, soup):
+        '''Identify the various compound segmentations for `orth` (if any).'''
+        compounds = []
+        error = None
+
+        for split in self.parse_etymologies(orth, soup):
+            try:
+                compounds.append(self.get_compound(orth, split))
+
+            # raised by `self.verify_compound()` if `etym` indicates a
+            # simplex word and not a compound
+            except SilentError:
+                continue
+
+            except ExtractionError as err:
+                error = error or err  # keep first error
+
+        # if no compound structures were successfully derived...
+        if not compounds:
+            open_delim = orth.count(' ') + orth.count('-')
+
+            # if `orth` is purely an open compound (i.e., it has no unmarked
+            # word boundaries), include `orth` as a compound structure
+            if open_delim and (not error or len(split) == open_delim + 1):
+                compounds.append(orth.lower())
+
+            # otherwise, raise `error` if one was encountered
+            elif error:
+                raise error
 
         # return any successfully derived compound structures or an empty list
         # in the event of zero errors and no compounds
         return compounds
 
-    def get_compound(self, orth, split, etymology_soup):
+    def get_compound(self, orth, split):
         '''Identify the word boundaries in `orth` from the word's etymology.
 
         Note that `split` is a list of strings derived from `etymology_soup`,
         the BeautifulSoup-parsed HTML containing the etymology of `orth`.
         '''
-        split = Extract.WORDS_P.findall(split)
         affixes = 0
-        errors = []
+        error = None
 
-        # if there is a hyphen somewhere in the etymology, check that each
-        # component containing a hyphen is a word and not an affix
-        compound = ''
-
-        for i, comp in enumerate(split):
-            a_tag = etymology_soup.find('a', string=comp)
-
-            if not a_tag or 'new' in a_tag.get('class', []):
-                url = self.wiki + quote(comp)
-                lang = self.native_lang
-
-            else:
-                url = WIKI_EN_URL + a_tag.get('href')
-                lang = self.lang
-
+        for i, (morph, url, lang) in enumerate(split):
             try:
-                soup = self.get_finnish_soup(url, lang)
-                headers = soup.find_all('span', class_='mw-headline')
-                comp, n = self.format_morpheme(headers, comp)
-                split[i] = comp
-                affixes += n
+                morph, is_affix = self.format_morpheme(morph, url, lang)
+                affixes += is_affix
 
-            except (HTTPError, URLError):  # from self.get_finnish_soup()
-                errors.append(
-                    ExtractionError("Could not verify '%s'." % comp))
+                # if `morph` is a hyphenless affix, this makes it difficult to
+                # discern which side(s) of `morph` can border a word boundary
+                if is_affix and '-' not in morph:
+                    morph = '-' + morph + '-'
+                    error = ExtractionError(
+                        "Affix not otherwise specified: '%s'." % morph)
 
-            except ExtractionError as err:  # from self.format_morpheme()
-                split[i] = '-' + comp + '-'
-                affixes += 1
-                errors.append(err)
+            # thrown in `get_finnish_soup()` when `url` is invalid
+            except (HTTPError, URLError):
+                error = HiccupError(
+                    "Could not verify '%s' due to invalid URL." % morph)
+
+            # raised when no "Finnish" soup is found in `get_finnish_soup()`
+            except ExtractionError as err:
+                error = err
+
+            split[i] = morph
 
         # if `split` contains all affixes and only one UNK, it is
-        # necessarily simplex and should not raise an error
-        if errors and affixes != len(split) - 1:
-            raise errors[0]
+        # necessarily simplex; otherwise, raise an error
+        if error and affixes != len(split) - 1:
+            raise error
 
-        compound = self.format_compound(''.join(split))
-
-        # temporarily represent all open delimiters as '='
-        compound = Extract.OPEN_DELIM_P.sub('=', compound)
-
-        return self.verify_compound(orth, compound)
-
-    def format_compound(self, compound):
-        '''Format the delimiters in `compound`.'''
-        if compound.startswith('='):
-            compound = compound[1:]
-
-        if compound.endswith('='):
-            compound = compound[:-1]
-
-        return compound \
-            .replace('=+', '+') \
-            .replace('+=', '+') \
-            .replace('==', '=') \
-            .replace('=-', '') \
-            .replace('-=', '') \
-            .replace('-', '').lower()
+        return self.verify_compound(orth, self.format_compound(''.join(split)))
 
     def verify_compound(self, orth, compound):
         '''Ensure that `compound` is a fair segmentation of `orth.`'''
@@ -389,40 +409,30 @@ class Extract:
         goal = self.basify(orth)
 
         if self.basify(compound) != goal:
-            compound = self.reconcile(compound, goal)
+            compound = self.reconcile(goal, compound)
 
         if ' ' in orth or '-' in orth:
-            compound = self.preserve_delimiters(compound, orth)
+            compound = self.preserve_delimiters(orth, compound)
 
         return compound
 
-    def basify(self, text):
-        '''Strip `text` of delimiters and make it lowercase.'''
-        return Extract.DELIMITERS_P.sub('', text).lower()
+    # reconcile ---------------------------------------------------------------
 
-    def reconcile(self, compound, orth, declension=False):
-        '''Split `orth` based on the split of `compound`.
+    def reconcile_lemma(self, lemma, compound):
+        '''Split `lemma` based on the split of `compound`.
 
-        This method is invoked when the orthography or "basified" form of
-        `compound` does not match the orthography of `orth`. This method
-        attempts to reconcile their differences to split `orth` appropriately.
+        This method is invoked when the orthography of`lemma` does not match
+        the orthography or "basified" form of its etymology (`compound`). This
+        method attempts to reconcile their differences to split `lemma`
+        appropriately.
 
-        E.g., if the compound's etymology is 'aaltomainen=uus', but `orth` is
+        E.g., if the compound's etymology is 'aaltomainen=uus', but `lemma` is
         `aaltomaisuus`, then this method will generate 'aaltomais=uus' as the
-        segmentation of `orth`.
+        segmentation of `lemma`.
         '''
-        i = max(compound.rfind('='), compound.rfind('+'), 0)
-
-        if i:
-            i += 1 if declension else 4
-            prefix = compound[:i]
-            basified_prefix = self.basify(prefix)
-
-            if basified_prefix in orth:
-                return orth.replace(basified_prefix, prefix)
-
         split = []
-        base = orth
+        base = lemma
+        error = None
 
         for comp in reversed(Extract.CLOSED_DELIM_P.split(compound)):
 
@@ -441,38 +451,48 @@ class Extract:
                         comp = comp[:-1]
 
                 else:
-                    raise ExtractionError(
-                        "Could not reconcile %s'%s' and '%s' (1)." %
-                        ('DECLENSION ' if declension else '', orth, compound))
+                    error = True
+                    break
 
         split = ''.join(split[::-1])
 
-        if self.basify(split) != orth:
+        if error or self.basify(split) != lemma:
             raise ExtractionError(
-                "Could not reconcile %s'%s' and '%s' (2)." %
-                ('DECLENSION ' if declension else '', orth, compound))
+                "Could not reconcile '%s' and '%s'." % (lemma, compound))
 
         if Extract.TOO_SHORT_P.search(split):
             raise ExtractionError(
-                "Could not SAFELY reconcile %s'%s' and '%s': '%s'." %
-                ('DECLENSION ' if declension else '', orth, compound, split))
+                "Could not SAFELY reconcile '%s' and '%s': '%s'." %
+                (lemma, compound, split))
 
         return split
 
-    def preserve_delimiters(self, compound, orth):
-        '''Preserve the delimiters found in `orth` in `compound`.'''
-        orth_split = Extract.CHAR_DELIM_P.findall(orth)
-        compound_split = Extract.CHAR_DELIM_P.findall(compound)
-        compound = ''
+    def reconcile_declension(self, declension, compound):
+        '''Split `declension` based on the split of `compound`.
 
-        for o, c in zip(orth_split, compound_split):
-            compound += c if len(c) > len(o) else o
+        This method attempts to reconcile a declension (`declension`) with its
+        lemma's segmentation (`compound`).
+        '''
+        i = max(compound.rfind('='), compound.rfind('+'), 0)
 
-        return compound
+        if i:
+            prefix = compound[:i + 1]
+            basified_prefix = self.basify(prefix)
 
-    # morphology --------------------------------------------------------------
+            if basified_prefix in declension:
+                return declension.replace(basified_prefix, prefix)
 
-    def format_morpheme(self, headers, morph):
+        try:
+            return self.reconcile_lemma(declension, compound)
+
+        except Exception:
+            raise ExtractionError(
+                "Could not reconcile declension '%s' and '%s'." %
+                (declension, compound))
+
+    # format ------------------------------------------------------------------
+
+    def format_morpheme(self, morph, url, lang):
         '''Format the delimiters surrounding `morph` and say if it is affixal.
 
         This method does NOT take into consideration interfixes.
@@ -484,18 +504,55 @@ class Extract:
         morpheme and the second element is a boolean indicating if the morpheme
         is affixal.
         '''
-        for label in headers:
+        soup = self.get_finnish_soup(url, lang)
 
+        # determine if `morph` is an affix...
+        for label in soup.find_all('span', class_='mw-headline'):
             if label.text in self.affixes:
+                return morph, True
 
-                if '-' in morph:
-                    return morph, True
+        # otherwise, if `morph` is a word, temporarily represent all word
+        # boundaries as '='
+        morph = Extract.OPEN_DELIM_P.sub('=', morph)
 
-                # handle hyphenless affixes (e.g, 'y' instead of '-y')
-                raise ExtractionError(
-                    "Affix not otherwise specified: '%s'." % morph)
+        if not morph.startswith('='):
+            morph = '=' + morph
 
-        return '=' + morph.replace('-', '') + '=', False
+        if not morph.endswith('='):
+            morph += '='
+
+        return morph, False
+
+    def format_compound(self, compound):
+        '''Format the delimiters in `compound`.'''
+        if compound.startswith('='):
+            compound = compound[1:]
+
+        if compound.endswith('='):
+            compound = compound[:-1]
+
+        return compound.lower() \
+            .replace('=+', '+') \
+            .replace('+=', '+') \
+            .replace('==', '=') \
+            .replace('=-', '') \
+            .replace('-=', '') \
+            .replace('-', '')
+
+    def preserve_delimiters(self, orth, compound):
+        '''Format the delimiters in `orth` according to those in `compound`.'''
+        orth_split = Extract.CHAR_DELIM_P.findall(orth)
+        compound_split = Extract.CHAR_DELIM_P.findall(compound)
+        compound = ''
+
+        for o, c in zip(orth_split, compound_split):
+            compound += c if len(c) > len(o) else o
+
+        return compound
+
+    def basify(self, text):
+        '''Strip `text` of delimiters and make it lowercase.'''
+        return Extract.DELIMITERS_P.sub('', text).lower()
 
     # declensions -------------------------------------------------------------
 
@@ -536,29 +593,42 @@ class Extract:
 
         return list(declensions)
 
-    def split_declension(self, orth, compound):
-        '''Delimit the word boundaries in `orth` according to `compound`.'''
-        goal = self.basify(orth)
-        compound = self.reconcile(compound, goal, declension=True)
+    def split_declension(self, declension, compound):
+        '''Split and format `declension` given its lemma `compound`.'''
+        goal = self.basify(declension)
+        compound = self.reconcile_declension(goal, compound)
 
-        if ' ' in orth or '-' in orth:
-            compound = self.preserve_delimiters(compound, orth)
+        if ' ' in declension or '-' in declension:
+            compound = self.preserve_delimiters(declension, compound)
 
         return compound
 
     # print -------------------------------------------------------------------
 
-    def print_error(self, orth, url, error):
-        '''Print an informative error message for `orth`.'''
+    def _print_error(self, orth, url, error):
+        '''Print an informative error message for `orth` to `sys.stderr`.'''
+        print('%s (%s) %s: %s' % (
+            orth, url, type(error).__name__, str(error)), file=stderr)
+
+    def _buffer_error(self, orth, url, error):
+        '''Buffer an informative error message for `orth` to `sys.stderr`.'''
         stderr.buffer.write(('%s (%s) %s: %s\n' % (
             orth, url, type(error).__name__, str(error))).encode('utf-8'))
 
-    def print_annotation(self, *annotation):
-        '''Format and print `annotation`.'''
+    def _print_annotation(self, *annotation):
+        '''Format and print `annotation` to `sys.stdout`.'''
+        print(' : '.join(annotation))
+
+    def _buffer_annotation(self, *annotation):
+        '''Format and buffer `annotation` to `sys.stdout`.'''
         stdout.buffer.write((' ; '.join(annotation) + '\n').encode('utf-8'))
 
 
 class ExtractionError(Exception):
+    pass
+
+
+class HiccupError(ExtractionError):
     pass
 
 
