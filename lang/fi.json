@@ -20,12 +20,12 @@
         "Affix",
         "Affiksi",          // affix
         "Prefix",
-        "Prefiksit",        // prefix
+        "Prefiksi",         // prefix
         "Infix",
         "Infiksit",         // infix
         "Interfix",
         "Suffix",
-        "Suffiksit",        // suffix
+        "Suffiksi",         // suffix
         "Particle",
         "Partikkeli",       // particle
         "Clitic",
