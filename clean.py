@@ -68,7 +68,7 @@ def clean_errors(errors_fn):
         errors = f.readlines()
 
     splitter = re.compile(r'(\w+(?:Error|Warning))')
-    specifics = re.compile(r"'[^']+'")
+    specifics = re.compile(r"'([^']+)'")
     errors = [splitter.split(e) for e in errors]
     uncaught = []
     extraction = []
@@ -87,7 +87,7 @@ def clean_errors(errors_fn):
     uncaught.sort(key=lambda x: (x[1], x[2], x[0].lower()))
 
     # sort `extraction` errors by error message, then by `orth`
-    extraction.sort(key=lambda x: (x[2], x[0].lower()))
+    extraction.sort(key=lambda x: (specifics.sub('', x[2]), x[0].lower()))
 
     errors = ''
 
