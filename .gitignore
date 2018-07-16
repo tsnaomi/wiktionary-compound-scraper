@@ -1,21 +1,20 @@
 *.pyc
+*.log
+.DS_Store
 __pycache__/
 
-test.py
 tests/
+test.py
 
-.DS_Store
+data/
 
-data/fi.*
+notes/
 
-de.*
-nl.*
-
-*.log
 extract.cmd
 extract.sh
 word_li
-word_li.*
-notes
 pull.sh
 push.sh
+
+de.*
+nl.*
