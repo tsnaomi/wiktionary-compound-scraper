@@ -409,7 +409,7 @@ class Extract:
         goal = self.basify(orth)
 
         if self.basify(compound) != goal:
-            compound = self.reconcile(goal, compound)
+            compound = self.reconcile_lemma(goal, compound)
 
         if ' ' in orth or '-' in orth:
             compound = self.preserve_delimiters(orth, compound)
