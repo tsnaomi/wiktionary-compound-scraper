@@ -381,9 +381,9 @@ class Extract:
                 # if `morph` is a hyphenless affix, this makes it difficult to
                 # discern which side(s) of `morph` can border a word boundary
                 if is_affix and '-' not in morph:
-                    morph = '-' + morph + '-'
                     error = ExtractionError(
                         "Affix not otherwise specified: '%s'." % morph)
+                    morph = '-' + morph + '-'
 
             # thrown in `get_finnish_soup()` when `url` is invalid
             except (HTTPError, URLError):
@@ -398,7 +398,7 @@ class Extract:
 
         # if `split` contains all affixes and only one UNK, it is
         # necessarily simplex; otherwise, raise an error
-        if error and affixes != len(split) - 1:
+        if error and affixes < len(split) - 1:
             raise error
 
         return self.verify_compound(orth, self.format_compound(''.join(split)))
