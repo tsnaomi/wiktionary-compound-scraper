@@ -52,6 +52,9 @@ class Extract:
     # for extracting bad reconciliations
     TOO_SHORT_P = re.compile(r'(?:^|=|\+)\w{1,2}(?:$|=|\+)')
 
+    # for extracting words from a debug list
+    DEBUG_WORD_P = re.compile(r'^([\w\s\d\-]+)(?: \(.+)?$', flags=re.M)
+
     def __init__(self, lang, code, grammar_fn=None):
         # set the language's name (`self.lang`) and 2-letter code (`self.code`)
         self.lang = lang
@@ -236,11 +239,12 @@ class Extract:
         '''
         if isinstance(debug_li, str):
             with open(debug_li, 'rb') as f:
-                debug_li = f.readlines()
+                debug_li = Extract.DEBUG_WORD_P.findall(
+                    f.read().decode('utf-8'))
 
         for orth in debug_li:
             if orth:
-                orth = orth.decode('utf-8').replace('\n', '')
+                orth = orth.replace('\n', '')
                 href = WIKI_EN_URL + '/wiki/' + quote(orth.replace(' ', '_'))
 
                 try:
