@@ -101,11 +101,7 @@ class Extract:
         '''Walk through Wiktionary, beginning with `url`.'''
         if not url:
             url = self.start_url
-
-            # print timestamp (e.g., '# Fri Jul 13 00:29:57 PDT 2018')
-            timestamp = datetime.now(tz=utc).astimezone(timezone('US/Pacific'))
-            timestamp = timestamp.strftime('%a %b %d %H:%M:%S %Z %Y\n')
-            self.print_annotation(timestamp)
+            self.timestamp()
 
         soup = BeautifulSoup(urlopen(url), 'html.parser')
         page = soup.find_all('a', title='Category:%s lemmas' % self.lang)[-1]
@@ -130,6 +126,9 @@ class Extract:
 
         if page.text == 'next page':
             return self.walk(WIKI_EN_URL + page.get('href'))
+
+        else:
+            self.timestamp()
 
     def extract(self, orth, url):
         '''Extract lexical information about `orth` from `url`.
@@ -622,6 +621,13 @@ class Extract:
     def _buffer_annotation(self, *annotation):
         '''Format and buffer `annotation` to `sys.stdout`.'''
         stdout.buffer.write((' ; '.join(annotation) + '\n').encode('utf-8'))
+
+    # timestamp ---------------------------------------------------------------
+
+    def timestamp(self):
+        '''Print the current date and time.'''
+        timestamp = datetime.now(tz=utc).astimezone(timezone('US/Pacific'))
+        self.print_annotation(timestamp.strftime('%a %b %d %H:%M:%S %Z %Y'))
 
 
 class ExtractionError(Exception):

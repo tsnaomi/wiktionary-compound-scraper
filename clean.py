@@ -12,11 +12,8 @@ def clean_data(data_fn):
     the function.
     '''
     with open(data_fn, 'r+') as f:
-        data = f.readlines()
-        timestamp, data = data[0], sorted(list(set(data[1:])))
-
-    if data[0] == '\n':
-        data = data[1:]
+        data = [line for line in f.readlines() if line != '\n']
+        start, data, end = data[0], sorted(list(set(data[1:-1]))), data[-1]
 
     # ---- start revisions ----
     # propose alternative splits in the cases where compounds underwent further
@@ -52,7 +49,7 @@ def clean_data(data_fn):
     # ---- end revisions ----
 
     with open(data_fn + '.cleaned', 'w+') as f:
-        f.write(timestamp + ''.join(data))
+        f.write(start + ''.join(data) + end)
 
 
 def clean_errors(errors_fn):
